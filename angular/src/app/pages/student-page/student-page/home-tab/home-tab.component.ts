@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-department-admin-home-tab',
+  selector: 'app-student-home-tab',
   templateUrl: './home-tab.component.html',
   styleUrls: ['./home-tab.component.css']
 })
-export class DepartmentAdminHomeTabComponent implements OnInit {
-
+export class StudentHomeTabComponent implements OnInit {
+  
   user_info = {
-    "email" : "ndavarpannah@gmail.com",
-    "name" : "Nima Davarpannah",
-    "bronco_Id" : "57246987",
+    "email" : "tlinkey@gmail.com",
+    "name" : "Travis Linkey",
+    "bronco_Id" : "011722438",
     "balance" : "100.00",
     "department" : "Computer Science"
   }

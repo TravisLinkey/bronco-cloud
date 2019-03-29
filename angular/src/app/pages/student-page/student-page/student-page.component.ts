@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentPageComponent implements OnInit {
 
+  user_info = {
+    "" : "",
+  }
+
   constructor() { }
 
   ngOnInit() {

@@ -41,12 +41,14 @@ import { SigninComponent } from './pages/launch-page/signin/signin.component';
 import { SignupComponent } from './pages/launch-page/signup/signup.component';
 import { StudentPageComponent } from './pages/student-page/student-page/student-page.component';
 import { DepartmentAdminPageComponent } from './pages/dept-admin-page/department-admin-page/department-admin-page.component';
-import { HomeTabComponent } from './pages/dept-admin-page/department-admin-page/home-tab/home-tab.component';
-import { DeptAdminViewTabComponent } from './pages/dept-admin-page/department-admin-page/view-tab/view-tab.component';
 import { CreateTabComponent } from './pages/dept-admin-page/department-admin-page/create-tab/create-tab.component';
 import { SignoutButtonComponent } from './pages/components/signout-button/signout-button.component';
 import { CheckoutTabComponent } from './pages/student-page/student-page/checkout-tab/checkout-tab.component';
 import { StudentViewTabComponent } from './pages/student-page/student-page/view-tab/view-tab.component';
+import { DeptAdminViewTabComponent } from './pages/dept-admin-page/department-admin-page/view-tab/view-tab.component';
+import { DepartmentAdminHomeTabComponent } from './pages/dept-admin-page/department-admin-page/home-tab/home-tab.component';
+import { StudentHomeTabComponent } from './pages/student-page/student-page/home-tab/home-tab.component';
+import { CheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
 
 @NgModule({
   declarations: [
@@ -67,12 +69,16 @@ import { StudentViewTabComponent } from './pages/student-page/student-page/view-
     HomeComponent,
     StudentPageComponent,
     DepartmentAdminPageComponent,
-    HomeTabComponent,
     DeptAdminViewTabComponent,
     StudentViewTabComponent,
     CreateTabComponent,
     SignoutButtonComponent,
-    CheckoutTabComponent
+    CheckoutTabComponent,
+    StudentViewTabComponent,
+    DeptAdminViewTabComponent,
+    DepartmentAdminHomeTabComponent,
+    StudentHomeTabComponent,
+    CheckinTabComponent
   ],
   imports: [
     BrowserModule,

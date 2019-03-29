@@ -1,0 +1,25 @@
+<div>
+  <h3>Return Department Asset</h3>
+
+  <form id="checkin-form">
+
+    <mat-form-field id="user-input">
+      <input matInput placeholder="Student Name">
+    </mat-form-field>
+
+    <div>
+        <table>
+          <tr *ngFor="let option of options" id="option-table">
+            <th> {{ option.asset_name }} </th>
+            <th> {{ option.asset_Id }} </th>
+            <mat-checkbox class="option-item"></mat-checkbox>
+          </tr>
+        </table>
+    </div>
+
+    <div id="create-button">
+      <button mat-raised-button color="primary">Return Asset</button>
+    </div>
+
+  </form>
+</div>

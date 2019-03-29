@@ -7,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentViewTabComponent implements OnInit {
   current_out = [
-    { "asset_name" : "Shovel", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
-    { "asset_name" : "Ice", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
+    { "asset_name" : "Google Glasses", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
+    { "asset_name" : "Macbook", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
     { "asset_name" : "Linux-Machine", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
     { "asset_name" : "VR-Goggles", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
+    { "asset_name" : "Apple Pen", "time_checkedout" : "10:12:2019", "due" : "10:25:2019" },
   ];
 
   constructor() { }

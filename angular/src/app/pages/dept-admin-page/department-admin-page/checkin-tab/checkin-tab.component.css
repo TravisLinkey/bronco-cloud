@@ -1,0 +1,29 @@
+h3 {
+    text-align: center;
+}
+
+p {
+    display: inline;
+    margin-left: 10px;
+}
+
+table {
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+    vertical-align: middle;
+}
+
+#checkin-form {
+    text-align: center;
+}
+
+#user-input {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#create-button {
+    margin: 10px;
+}

@@ -11,8 +11,8 @@ export class CheckoutTabComponent implements OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
   
   dept_assets = [
-    { "asset_name" : "Shovel", "available" : 1 },
-    { "asset_name" : "Ice", "available" : 3 },
+    { "asset_name" : "Macbook", "available" : 1 },
+    { "asset_name" : "Computer Monitor", "available" : 3 },
     { "asset_name" : "Linux Machine", "available" : 3 },
     { "asset_name" : "VR Glasses", "available" : 6 },
   ];

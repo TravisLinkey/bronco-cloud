@@ -3,6 +3,10 @@ h1 {
     font-weight: bold;
 }
 
+h3 {
+    text-align: center;
+}
+
 .header {
     margin-top: 60px;
     margin-botton: 20px;
