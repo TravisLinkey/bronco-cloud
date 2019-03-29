@@ -2,10 +2,26 @@
   <div class="col-xs-8">
       <table class="table table-responsive">
           <tr class="thread-cols">
-            <th>asset Id</th>
-            <th>asset name</th>
-            <th>checkout time</th>
-            <th>due by</th>
+            <th>Asset Name</th>
+            <th>Checked Out</th>
+            <th>Owner</th>
+            <th>Due</th>
+            <th>Overdue</th>
+          </tr>
+
+          <tr *ngFor="let checkout of current_out">
+            <td>{{ checkout.asset_name }}</td>
+            <td>{{ checkout.checked_out }}</td>
+            <td>{{ checkout.owner }}</td>
+            <td>{{ checkout.due_by }}</td>
+            <td>
+              <label [ngClass]="{
+                'true' : checkout.overdue == 'true',
+                'false' : checkout.overdue == 'false'
+              }">
+                  {{ checkout.overdue }}
+              </label>
+            </td>
           </tr>
       </table>
   </div>
