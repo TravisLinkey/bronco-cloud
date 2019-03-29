@@ -1,0 +1,100 @@
+// required rules
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+
+// All users READ network
+rule StatefulRead {
+	description: "Grant all users permission to READ access to the network"
+  	participant: "org.cpp.csdept.user.*"
+  	operation: READ
+    resource: "org.hyperledger.composer.system.**"
+  	action: ALLOW
+}
+
+// Users can see themselves
+rule StudentsReadSelf {
+	description: "Students can see themselves"
+  	participant(p): "org.cpp.csdept.user.*"
+  	operation: READ
+    resource(r): "org.cpp.csdept.user.*"
+  	condition: (p.cpp_email == r.cpp_email)
+  	action: ALLOW
+}
+
+// Admin Rules
+
+// Admins can add to historian
+rule UsersEditHistory {
+	description: "Grant Dept Admins full priviledges to assets"
+  	participant: "org.cpp.csdept.user.*"
+  	operation: CREATE                                                               
+  	resource: "org.hyperledger.composer.system.HistorianRecord"
+  	action: ALLOW
+}
+// Admins can do all operations on assets
+rule AdminAssetFullPriv {
+	description: "Grant Dept Admins full priviledges to assets"
+  	participant: "org.cpp.csdept.user.Admin"
+  	operation: ALL
+  	resource: "org.cpp.csdept.assets.*"
+  	action: ALLOW
+}
+// Admins can read students
+rule AdminReadStudent {
+	description: "Grant Dept Admins full priviledges to assets"
+  	participant: "org.cpp.csdept.user.Admin"
+  	operation: READ
+  	resource: "org.cpp.csdept.user.Student"
+  	action: ALLOW
+}
+
+// Student Rules
+
+// Students can see assets that are available or they own
+rule StudentsReadAssets {
+	description: "Students can only see available assets and check out assets"
+  	participant(p): "org.cpp.csdept.user.Student"
+  	operation: READ, UPDATE
+  	resource(r): "org.cpp.csdept.assets.Department_Asset"
+  	condition:  (r.in_use == false || p.cpp_email == r.renter.cpp_email)
+  	action: ALLOW
+}
+// Students can checkout assets
+rule StudentsCreateCheckout {
+  	description: "Students can checkout assets"
+  	participant: "org.cpp.csdept.user.Student"
+  	operation: CREATE
+    resource: "org.cpp.csdept.assets.Checkout_Item"
+  	action: ALLOW
+}
+// Students can CREATE/READ rentals
+rule StudentsRentalPriv {
+  	description: "Students can checkout assets"
+  	participant(p): "org.cpp.csdept.user.Student"
+  	operation: CREATE,READ
+    resource(r): "org.cpp.csdept.assets.Rental"
+  	condition: (p.cpp_email == r.renter.cpp_email)
+  	action: ALLOW
+}
+// Students can return assets
+rule StudentsCreateReturn {
+  	description: "Students can return assets"
+  	participant(p): "org.cpp.csdept.user.Student"
+  	operation: CREATE,READ
+    resource(r): "org.cpp.csdept.assets.Return_Item"
+  	condition: (p.cpp_email == r.renter.cpp_email)
+  	action: ALLOW
+}

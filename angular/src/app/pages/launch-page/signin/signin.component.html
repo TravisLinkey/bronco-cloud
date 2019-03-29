@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3"></div>
+
+    <div class="col-xs-6">
+
+      <h1>bronco-cloud</h1>
+
+      <form (ngSubmit)="onSubmit()" id="submit-form">
+          <mat-card id="signin-card">
+
+            <h3>Sign In</h3>
+
+            <div class="">
+              <mat-form-field>
+                <input
+                matInput
+                placeholder="CPP Email"
+                type="text"
+                class="form-control"
+                ngModel
+                name="cpp_email"
+                required
+                >
+              </mat-form-field>
+            </div>
+
+            <div class="">
+              <mat-form-field>
+                <input
+                matInput
+                placeholder="Bronco ID"
+                type="text"
+                class="form-control"
+                ngModel
+                name="bronco_ID"
+                required
+                >
+              </mat-form-field>
+            </div>
+
+            <div>
+                <button id="submit-button" mat-raised-button color="primary">Sign In</button>
+            </div>
+
+            <div>
+                <p>New user? <a [routerLink]="['/signup']">Create Account</a> </p>
+            </div>
+
+          </mat-card>
+      </form>
+
+    </div>
+
+    <div class="col-xs-3"></div>
+  </div>
+</div>

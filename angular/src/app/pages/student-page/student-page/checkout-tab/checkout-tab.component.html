@@ -1,0 +1,25 @@
+<div class="row">
+    <table class="table table-responsive">
+      <tr class="thread-cols">
+        <th>Asset</th>
+        <th>Available</th>
+        <th>Checkout</th>
+      </tr>
+
+      <tr *ngFor="let asset of dept_assets">
+        <td class="asset-properties">{{asset.asset_name}}</td>
+        <td class="asset-properties">{{asset.available}}</td>
+        <td>
+            <input #checkboxes type="checkbox">
+        </td>
+        
+      </tr>
+
+    </table>
+
+    <div id="button-segment">
+        <button mat-raised-button color="basic" (click)="clearCheckBoxes()">Clear</button>
+        <button mat-raised-button color="primary">Checkout</button>
+    </div>
+
+</div>

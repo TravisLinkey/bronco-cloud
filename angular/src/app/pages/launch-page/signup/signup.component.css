@@ -1,0 +1,21 @@
+h1 {
+    padding: 15px;
+    font-size: 45px;
+}
+
+h3 {
+    padding-top: 10px;
+}
+
+mat-form-field {
+}
+
+#center-column {
+    margin-top: 60px;
+    text-align: center;
+}
+
+#create-account-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

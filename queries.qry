@@ -1,0 +1,35 @@
+// Return all items Checked out
+query AllItems {
+  description: "Returns all the Department assets"
+  statement:
+    SELECT org.cpp.csdept.assets.Department_Asset
+}
+
+query AllStudents {
+  description: "Returns all Students"
+  statement:
+    SELECT org.cpp.csdept.user.Student
+}
+
+query AllAdmins {
+  description: "Returns all Admins"
+  statement:
+    SELECT org.cpp.csdept.user.Admin
+}
+
+query AllCheckedOut {
+  description: "return all Checked Out Asset"
+  statement: SELECT org.cpp.csdept.assets.Rental
+}
+
+query SearchStudent{
+  description: "return specific student"
+  statement: SELECT org.cpp.csdept.user.Student
+  WHERE (name == _$nameParam OR bronco_id == _$broncoID)
+}
+
+query SearchAdmin{
+  description: "return specific student"
+  statement: SELECT org.cpp.csdept.user.Admin
+  WHERE (name == _$nameParam OR bronco_id == _$broncoID)
+}

@@ -1,0 +1,38 @@
+<app-signout-button></app-signout-button>
+
+<div class="row">
+  <div class="col-xs-2"></div>
+  
+  <div class="col-xs-8">
+    <div>
+      <h1 class="header">Department Admin</h1>
+      
+      <mat-card id="card">
+
+        <form>
+            <mat-tab-group id="tab-button" dynamicHeight="true">
+                
+                <mat-tab label="home">
+                  <app-home-tab></app-home-tab>
+                </mat-tab>
+                
+                <mat-tab label="view">
+                  <app-dept-admin-view-tab></app-dept-admin-view-tab>
+                </mat-tab>
+
+                <mat-tab label="create">
+                  <app-create-tab></app-create-tab>
+                </mat-tab>
+
+              </mat-tab-group>
+
+        </form>
+          
+      </mat-card>
+  
+    </div>
+  </div>
+
+  <div class="col-xs-2"></div>
+</div>
+

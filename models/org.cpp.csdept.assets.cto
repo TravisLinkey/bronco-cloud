@@ -1,0 +1,40 @@
+namespace org.cpp.csdept.assets
+import org.cpp.csdept.user.*
+
+asset Department_Asset identified by asset_Id {
+  	o String asset_Id
+  	o String asset_name
+    o Boolean in_use default = false
+    --> User renter optional
+}
+
+asset Rental identified by checkout_ID {
+	o String checkout_ID
+  	o Integer due_by
+  	--> Asset department_asset
+    --> Student renter
+}
+
+transaction Create_Asset {
+    o String asset_name
+}
+
+transaction Delete_Asset {
+	--> Asset department_asset
+}
+
+transaction Checkout_Item extends Item_Event {}
+transaction Return_Item extends Item_Event {}
+
+event Item_Checked_Out {
+  	o String checkout_ID
+}
+
+event Item_Returned {
+  o String checkin_ID
+}
+
+abstract transaction Item_Event {
+  	--> Student renter
+  	--> Asset department_asset
+}

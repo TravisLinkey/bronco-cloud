@@ -1,0 +1,25 @@
+.container {
+    margin-top: 80px;
+}
+
+#signin-card {
+    margin-top: 30px;
+}
+
+#submit-button {
+    margin: 20px;
+}
+
+#new-account-label {
+    margin: 10px;
+}
+
+#submit-form {
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 45px;
+    text-align: center;
+}

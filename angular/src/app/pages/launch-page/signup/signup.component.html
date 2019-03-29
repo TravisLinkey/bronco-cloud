@@ -1,0 +1,84 @@
+<div class="container">
+
+  <div class="col-xs-3"></div>
+
+  <div class="col-xs-6" id="center-column">
+
+    <h1>Sign Up</h1>
+
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <mat-card>
+
+        <h3>Create An Account</h3>
+
+        <div>
+          <mat-form-field>
+            <input matInput
+            placeholder="Bronco Name"
+            type="text"
+            class="form-control"
+            ngModel
+            name="cpp_email"
+            required
+            email
+            >
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input matInput
+            placeholder="Full Name"
+            type="text"
+            class="form-control"
+            ngModel
+            name="name"
+            required
+            >
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <input matInput
+            placeholder="Bronco Id"
+            type="text"
+            class="form-control"
+            ngModel
+            name="bronco_id"
+            required
+            >
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <mat-select
+          placeholder="Account Type"
+          [(ngModel)]="selectedAccount"
+          name="account"
+          required
+          >
+            <mat-option *ngFor="let account of accounts" [value]="account.value">{{account.viewValue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <div>
+          <button
+          id="create-account-button"
+          mat-raised-button
+          color="primary"
+          [disabled]="!f.valid"
+          >Create Account</button>
+        </div>
+
+      </mat-card>
+    </form>
+
+    <a [routerLink]="['/signin']">back to signin</a>
+
+  </div>
+
+  <div class="col-xs-3"></div>
+
+</div>

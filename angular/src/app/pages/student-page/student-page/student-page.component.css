@@ -1,0 +1,14 @@
+h1 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.header {
+    margin-top: 60px;
+    margin-botton: 20px;
+}
+
+#card {
+    margin-top: 30px;
+    margin: 40px;
+}

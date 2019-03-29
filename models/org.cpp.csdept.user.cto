@@ -1,0 +1,19 @@
+namespace org.cpp.csdept.user
+
+abstract participant User identified by cpp_email {
+  o String cpp_email 
+  o String name
+  o Integer bronco_id
+  o Double balance default = 10.0
+  o String department optional 
+}
+  
+participant Admin extends User {}
+participant Student extends User {}
+
+transaction Add_Money {
+  o Double amount
+  o String cpp_email
+}
+
+event Money_Added {}
