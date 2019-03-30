@@ -14,10 +14,10 @@ export class Add_MoneyComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allTransactions;
+  public allTransactions;
   private Transaction;
   private currentId;
-  private errorMessage;
+  public errorMessage;
 
   amount = new FormControl('', Validators.required);
   cpp_email = new FormControl('', Validators.required);

@@ -13,10 +13,10 @@ export class StudentComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allParticipants;
+  public allParticipants;
   private participant;
   private currentId;
-  private errorMessage;
+  public errorMessage;
 
   cpp_email = new FormControl('', Validators.required);
   name = new FormControl('', Validators.required);

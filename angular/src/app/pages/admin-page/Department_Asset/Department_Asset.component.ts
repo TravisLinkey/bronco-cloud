@@ -13,10 +13,10 @@ export class Department_AssetComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allAssets;
+  public allAssets;
   private asset;
   private currentId;
-  private errorMessage;
+  public errorMessage;
 
   asset_Id = new FormControl('', Validators.required);
   asset_name = new FormControl('', Validators.required);
