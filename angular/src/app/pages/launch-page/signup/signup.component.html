@@ -12,6 +12,10 @@
         <h3>Create An Account</h3>
 
         <div>
+          <a href="http://localhost:3001/auth/google">Sign in with Google</a>
+        </div>
+
+        <div>
           <mat-form-field>
             <input matInput
             placeholder="Bronco Name"
@@ -20,7 +24,6 @@
             ngModel
             name="cpp_email"
             required
-            email
             >
           </mat-form-field>
         </div>
@@ -61,6 +64,10 @@
             <mat-option *ngFor="let account of accounts" [value]="account.value">{{account.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <div id="spinner-wrapper">
+          <mat-spinner *ngIf="spinnerOn" [diameter]="50" id="spinner"></mat-spinner>
+        </div>
 
 
         <div>

@@ -8,7 +8,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class StudentService {
 
-  private NAMESPACE = 'org.cpp.csdept.user.Student';
+  private NAMESPACE = 'Student';
 
   constructor(private dataService: DataService<Student>) {
   };

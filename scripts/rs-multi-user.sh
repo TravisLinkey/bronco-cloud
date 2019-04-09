@@ -19,12 +19,9 @@ export COMPOSER_MULTIUSER=true
 export COMPOSER_DATASOURCES='{
     "db": {
         "name": "db",
-        
         "url": "mongodb+srv://test:test@restauth-b0ayy.mongodb.net/test?retryWrites=true",
         "port": 27017,
-       
         "database": "restauth",
-
         "connector": "mongodb"  
     }
 }'

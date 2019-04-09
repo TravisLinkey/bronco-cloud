@@ -8,7 +8,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class Department_AssetService {
 
-  private NAMESPACE = 'org.cpp.csdept.assets.Department_Asset';
+  private NAMESPACE = 'Department_Asset';
 
   constructor(private dataService: DataService<Department_Asset>) {
   };

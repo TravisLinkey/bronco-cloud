@@ -17,7 +17,7 @@ export class DataService<Type> {
         this.headers.append('Accept', 'application/json');
 
         // to access authenticated rest server
-        this.headers.append('x-access-token', '10rAQDEjJ90MrBn8NN8q9A8lE5zzQKHihmIFqOgTxkL0JBuIBgWzCIBWa7xMZ9Ml');
+        // this.headers.append('x-access-token', 'L11y3UgFW60jWpuprf1pNzArSAIJiR4M6jZGOq86ln6O4zFYYII4FcoPCzqRa6iG');
     }
 
     public getAll(ns: string): Observable<Type[]> {

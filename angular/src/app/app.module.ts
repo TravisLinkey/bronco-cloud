@@ -49,6 +49,9 @@ import { DeptAdminViewTabComponent } from './pages/dept-admin-page/department-ad
 import { DepartmentAdminHomeTabComponent } from './pages/dept-admin-page/department-admin-page/home-tab/home-tab.component';
 import { StudentHomeTabComponent } from './pages/student-page/student-page/home-tab/home-tab.component';
 import { CheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
+import { SystemService } from './services/System.service';
+import { WalletService } from './services/Wallet.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -87,7 +90,8 @@ import { CheckinTabComponent } from './pages/dept-admin-page/department-admin-pa
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [
     DataService,
@@ -100,6 +104,9 @@ import { CheckinTabComponent } from './pages/dept-admin-page/department-admin-pa
     RentalService,
     Return_ItemService,
     StudentService,
+    AdminService,
+    SystemService,
+    WalletService
   ],
   bootstrap: [AppComponent]
 })

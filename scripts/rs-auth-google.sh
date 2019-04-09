@@ -21,10 +21,10 @@ export COMPOSER_PROVIDERS='{
     "authPath": "/auth/google",
     "callbackURL": "/auth/google/callback",
     "scope": "https://www.googleapis.com/auth/plus.login",
-    "successRedirect": "/",
+    "successRedirect": "http://localhost:4200/signup",
     "failureRedirect": "/"
   }
 }'
 
 #5. Execute the REST server
-composer-rest-server
+composer-rest-server --port 3001
