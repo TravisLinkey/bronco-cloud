@@ -1,0 +1,17 @@
+<h3>Available Assets</h3>
+
+<div class="row">
+    <table class="table table-responsive">
+      <tr class="thread-cols">
+        <th>Asset</th>
+        <th>Quantity</th>
+      </tr>
+
+      <tr *ngFor="let asset of dept_assets">
+        <td class="asset-properties">{{ asset.asset_name }}</td>
+        <td class="asset-properties">{{ asset.available }}</td>
+      </tr>
+
+    </table>
+
+</div>

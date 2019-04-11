@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../../../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Add_Money } from '../org.cpp.csdept.user';
+import { Add_Money } from '../../../org.cpp.csdept.user';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
 @Injectable()
 export class Add_MoneyService {
 
-  private NAMESPACE = 'org.cpp.csdept.assets.Add_Money';
+  private NAMESPACE = 'org.cpp.csdept.user.Add_Money';
 
   constructor(private dataService: DataService<Add_Money>) {
   };

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-create-tab',
+  selector: 'app-dept-admin-create-tab',
   templateUrl: './create-tab.component.html',
   styleUrls: ['./create-tab.component.css']
 })
-export class CreateTabComponent implements OnInit {
+export class DeptAdminCreateTabComponent implements OnInit {
 
   constructor() { }
 

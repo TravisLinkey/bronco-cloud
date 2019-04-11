@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-checkin-tab',
+  selector: 'app-dept-admin-checkin-tab',
   templateUrl: './checkin-tab.component.html',
   styleUrls: ['./checkin-tab.component.css']
 })
-export class CheckinTabComponent implements OnInit {
+export class DeptAdminCheckinTabComponent implements OnInit {
 
   options = [
     { "asset_name" : "Linux_Machine", "asset_Id" : "12345" },

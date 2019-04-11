@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../../../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Create_Asset } from '../org.cpp.csdept.assets';
+import { Create_Asset } from '../../../org.cpp.csdept.assets';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor

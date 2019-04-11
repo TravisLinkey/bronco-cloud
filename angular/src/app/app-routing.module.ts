@@ -3,22 +3,22 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // admin page components
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { Department_AssetComponent } from './pages/admin-page/Department_Asset/Department_Asset.component';
-import { RentalComponent } from './pages/admin-page/Rental/Rental.component';
-import { AdminComponent } from './pages/admin-page/Admin/Admin.component';
-import { StudentComponent } from './pages/admin-page/Student/Student.component';
-import { Create_AssetComponent } from './pages/admin-page/Create_Asset/Create_Asset.component';
-import { Delete_AssetComponent } from './pages/admin-page/Delete_Asset/Delete_Asset.component';
-import { Checkout_ItemComponent } from './pages/admin-page/Checkout_Item/Checkout_Item.component';
-import { Return_ItemComponent } from './pages/admin-page/Return_Item/Return_Item.component';
-import { Add_MoneyComponent } from './pages/admin-page/Add_Money/Add_Money.component';
+import { HomeComponent } from './pages/network-admin-page/home/home.component';
+import { AdminPageComponent } from './pages/network-admin-page/admin-page.component';
+import { Department_AssetComponent } from './pages/network-admin-page/Department_Asset/Department_Asset.component';
+import { RentalComponent } from './pages/network-admin-page/Rental/Rental.component';
+import { AdminComponent } from './pages/network-admin-page/Admin/Admin.component';
+import { StudentComponent } from './pages/network-admin-page/Student/Student.component';
+import { Create_AssetComponent } from './pages/network-admin-page/Create_Asset/Create_Asset.component';
+import { Delete_AssetComponent } from './pages/network-admin-page/Delete_Asset/Delete_Asset.component';
+import { Checkout_ItemComponent } from './pages/network-admin-page/Checkout_Item/Checkout_Item.component';
+import { Return_ItemComponent } from './pages/network-admin-page/Return_Item/Return_Item.component';
+import { Add_MoneyComponent } from './pages/network-admin-page/Add_Money/Add_Money.component';
 
 // launch pages
 import { SigninComponent } from './pages/launch-page/signin/signin.component';
 import { SignupComponent } from './pages/launch-page/signup/signup.component';
-import { HomeComponent } from './pages/admin-page/home/home.component';
-import { DepartmentAdminPageComponent } from './pages/dept-admin-page/department-admin-page/department-admin-page.component';
+import { DeptAdminPageComponent } from './pages/dept-admin-page/department-admin-page/department-admin-page.component';
 import { StudentPageComponent } from './pages/student-page/student-page/student-page.component';
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
     { path: 'Return_Item', component: Return_ItemComponent },
     { path: 'Add_Money', component: Add_MoneyComponent }
   ]},
-  { path: 'departmentadmin', component: DepartmentAdminPageComponent },
+  { path: 'departmentadmin', component: DeptAdminPageComponent },
   { path: 'student', component: StudentPageComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },

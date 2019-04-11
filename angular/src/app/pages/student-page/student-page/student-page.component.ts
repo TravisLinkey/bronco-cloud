@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material';
 
 @Component({
   selector: 'app-student-page',
@@ -7,13 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentPageComponent implements OnInit {
 
-  user_info = {
-    "" : "",
-  }
-
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

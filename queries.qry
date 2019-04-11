@@ -25,11 +25,11 @@ query AllCheckedOut {
 query SearchStudent{
   description: "return specific student"
   statement: SELECT org.cpp.csdept.user.Student
-  WHERE (name == _$nameParam OR bronco_id == _$broncoID)
+  WHERE (bronco_id == _$broncoID)
 }
 
 query SearchAdmin{
   description: "return specific student"
   statement: SELECT org.cpp.csdept.user.Admin
-  WHERE (name == _$nameParam OR bronco_id == _$broncoID)
+  WHERE (bronco_id == _$broncoID)
 }

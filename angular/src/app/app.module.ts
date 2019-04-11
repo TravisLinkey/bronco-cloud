@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { DataService } from './data.service';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // angular material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,37 +22,43 @@ import { Department_AssetService } from './services/Department_Asset.service';
 import { RentalService } from './services/Rental.service';
 import { Return_ItemService } from './services/Return_Item.service';
 import { StudentService } from './services/Student.service';
+import { SystemService } from './services/System.service';
+import { WalletService } from './services/Wallet.service';
 
-// admin page components
-import { DropdownBarComponent } from './pages/admin-page/dropdown-bar/dropdown-bar.component';
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { HomeComponent } from './pages/admin-page/home/home.component';
-import { Department_AssetComponent } from './pages/admin-page/Department_Asset/Department_Asset.component';
-import { RentalComponent } from './pages/admin-page/Rental/Rental.component';
-import { AdminComponent } from './pages/admin-page/Admin/Admin.component';
-import { StudentComponent } from './pages/admin-page/Student/Student.component';
-import { Create_AssetComponent } from './pages/admin-page/Create_Asset/Create_Asset.component';
-import { Delete_AssetComponent } from './pages/admin-page/Delete_Asset/Delete_Asset.component';
-import { Checkout_ItemComponent } from './pages/admin-page/Checkout_Item/Checkout_Item.component';
-import { Return_ItemComponent } from './pages/admin-page/Return_Item/Return_Item.component';
-import { Add_MoneyComponent } from './pages/admin-page/Add_Money/Add_Money.component';
+// network admin page components
+import { DropdownBarComponent } from './pages/network-admin-page/dropdown-bar/dropdown-bar.component';
+import { AdminPageComponent } from './pages/network-admin-page/admin-page.component';
+import { HomeComponent } from './pages/network-admin-page/home/home.component';
+import { Department_AssetComponent } from './pages/network-admin-page/Department_Asset/Department_Asset.component';
+import { RentalComponent } from './pages/network-admin-page/Rental/Rental.component';
+import { AdminComponent } from './pages/network-admin-page/Admin/Admin.component';
+import { StudentComponent } from './pages/network-admin-page/Student/Student.component';
+import { Create_AssetComponent } from './pages/network-admin-page/Create_Asset/Create_Asset.component';
+import { Delete_AssetComponent } from './pages/network-admin-page/Delete_Asset/Delete_Asset.component';
+import { Checkout_ItemComponent } from './pages/network-admin-page/Checkout_Item/Checkout_Item.component';
+import { Return_ItemComponent } from './pages/network-admin-page/Return_Item/Return_Item.component';
+import { Add_MoneyComponent } from './pages/network-admin-page/Add_Money/Add_Money.component';
+
+// shared components
+import { SignoutButtonComponent } from './pages/shared/signout-button/signout-button.component';
 
 // launch page components
 import { SigninComponent } from './pages/launch-page/signin/signin.component';
 import { SignupComponent } from './pages/launch-page/signup/signup.component';
+
+// student page components
 import { StudentPageComponent } from './pages/student-page/student-page/student-page.component';
-import { DepartmentAdminPageComponent } from './pages/dept-admin-page/department-admin-page/department-admin-page.component';
-import { CreateTabComponent } from './pages/dept-admin-page/department-admin-page/create-tab/create-tab.component';
-import { SignoutButtonComponent } from './pages/components/signout-button/signout-button.component';
-import { CheckoutTabComponent } from './pages/student-page/student-page/checkout-tab/checkout-tab.component';
-import { StudentViewTabComponent } from './pages/student-page/student-page/view-tab/view-tab.component';
-import { DeptAdminViewTabComponent } from './pages/dept-admin-page/department-admin-page/view-tab/view-tab.component';
-import { DepartmentAdminHomeTabComponent } from './pages/dept-admin-page/department-admin-page/home-tab/home-tab.component';
-import { StudentHomeTabComponent } from './pages/student-page/student-page/home-tab/home-tab.component';
-import { CheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
-import { SystemService } from './services/System.service';
-import { WalletService } from './services/Wallet.service';
-import { HttpClientModule } from '@angular/common/http';
+import { StudentInfoTabComponent } from './pages/student-page/student-page/info-tab/info-tab.component';
+import { StudentAvailableTabComponent } from './pages/student-page/student-page/available-tab/available-tab.component';
+import { StudentRentalTabComponent } from './pages/student-page/student-page/rental-tab/rental-tab.component';
+
+// department page components
+import { DeptAdminPageComponent } from './pages/dept-admin-page/department-admin-page/department-admin-page.component';
+import { DeptAdminInfoTabComponent } from './pages/dept-admin-page/department-admin-page/info-tab/info-tab.component';
+import { DeptAdminRentalsTabComponent } from './pages/dept-admin-page/department-admin-page/rentals-tab/rentals-tab.component';
+import { DeptAdminCreateTabComponent } from './pages/dept-admin-page/department-admin-page/create-tab/create-tab.component';
+import { DeptAdminCheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
+import { DeptAdminCheckoutTabComponent } from './pages/dept-admin-page/department-admin-page/checkout-tab/checkout-tab.component';
 
 @NgModule({
   declarations: [
@@ -71,17 +78,17 @@ import { HttpClientModule } from '@angular/common/http';
     AdminPageComponent,
     HomeComponent,
     StudentPageComponent,
-    DepartmentAdminPageComponent,
-    DeptAdminViewTabComponent,
-    StudentViewTabComponent,
-    CreateTabComponent,
+    StudentAvailableTabComponent,
+    StudentRentalTabComponent,
+    StudentInfoTabComponent,
+    DeptAdminPageComponent,
+    DeptAdminInfoTabComponent,
+    DeptAdminCreateTabComponent,
+    DeptAdminCheckinTabComponent,
+    DeptAdminCheckoutTabComponent,
+    DeptAdminRentalsTabComponent,
     SignoutButtonComponent,
-    CheckoutTabComponent,
-    StudentViewTabComponent,
-    DeptAdminViewTabComponent,
-    DepartmentAdminHomeTabComponent,
-    StudentHomeTabComponent,
-    CheckinTabComponent
+    StudentInfoTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +98,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     DataService,

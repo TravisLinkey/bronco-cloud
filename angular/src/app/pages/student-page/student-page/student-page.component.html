@@ -8,20 +8,31 @@
       <h1 class="header">Student</h1>
       
       <mat-card id="card">
-
         <form>
             <mat-tab-group id="tab-button" dynamicHeight="true">
-                
-                <mat-tab label="home">
-                  <app-student-home-tab></app-student-home-tab>
+
+                <mat-tab label="info">
+
+                  <div>
+                    <app-student-info-tab ></app-student-info-tab>
+                  </div>
+
                 </mat-tab>
-                
-                <mat-tab label="view">
-                  <app-student-view-tab></app-student-view-tab>
+              
+                <mat-tab label="rentals">
+
+                  <div>
+                    <app-student-rental-tab ></app-student-rental-tab>
+                  </div>
+
                 </mat-tab>
 
-                <mat-tab label="checkout">
-                  <app-checkout-tab></app-checkout-tab>
+                <mat-tab label="available">
+
+                  <div>
+                    <app-available-tab></app-available-tab>
+                  </div>
+
                 </mat-tab>
 
               </mat-tab-group>

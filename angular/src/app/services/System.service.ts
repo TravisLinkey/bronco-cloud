@@ -3,7 +3,6 @@ import { DataService } from "../data.service";
 import { Observable } from "rxjs";
 import { User } from '../org.cpp.csdept.user';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { IssueIdentity } from "app/org.hyperledger.composer.system";
 
 @Injectable()
 export class SystemService {
