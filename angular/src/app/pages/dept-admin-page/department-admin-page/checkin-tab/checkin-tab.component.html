@@ -1,10 +1,10 @@
 <div>
   <h3>Return Department Asset</h3>
 
-  <form id="checkin-form">
+  <form id="checkin-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
 
     <mat-form-field id="user-input">
-      <input matInput placeholder="Student Name">
+      <input matInput placeholder="Student Name" [(ngModel)]="user_name" name="user_name">
     </mat-form-field>
 
     <div>

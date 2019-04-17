@@ -24,6 +24,10 @@ h1 {
     text-align: center;
 }
 
+#spinner {
+    margin: 0 auto;
+}
+
 #signin-button {
-    margin: 40px;
+    margin: 20px;
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-// import { StudentService } from '../../../services/Student.service';
 import { StudentService } from './Student.service';
 import 'rxjs/add/operator/toPromise';
 

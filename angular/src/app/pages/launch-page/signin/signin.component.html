@@ -6,31 +6,15 @@
 
       <h1>bronco-cloud</h1>
 
-      <form (ngSubmit)="onSubmit()" id="submit-form">
+      <form (ngSubmit)="onSubmit(f)" id="submit-form" #f="ngForm">
           <mat-card id="signin-card">
 
             <h3>Sign In</h3>
 
             <div>
-              <button id="signin-button" mat-raised-button color="primary">
-                Sign in with Google
+              <button id="signin-button" mat-button color="primary">
+                Verify with Google
               </button>
-              
-            </div>
-    
-
-            <!-- <div class="">
-              <mat-form-field>
-                <input
-                matInput
-                placeholder="CPP Email"
-                type="text"
-                class="form-control"
-                ngModel
-                name="cpp_email"
-                required
-                >
-              </mat-form-field>
             </div>
 
             <div class="">
@@ -41,15 +25,19 @@
                 type="text"
                 class="form-control"
                 ngModel
-                name="bronco_ID"
+                name="bronco_Id"
                 required
                 >
               </mat-form-field>
             </div>
 
+            <div id="spinner-wrapper">
+              <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
+            </div>
+
             <div>
-                <button id="submit-button" mat-raised-button color="primary">Sign In</button>
-            </div> -->
+                <button id="submit-button" mat-raised-button color="primary">Log In</button>
+            </div>
 
             <div>
                 <p>New user? <a [routerLink]="['/signup']">Create Account</a> </p>

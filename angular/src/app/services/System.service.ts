@@ -3,34 +3,29 @@ import { DataService } from "../data.service";
 import { Observable } from "rxjs";
 import { User } from '../org.cpp.csdept.user';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { WalletService } from "./Wallet.service";
 
 @Injectable()
 export class SystemService {
     private headers: HttpHeaders;
 
-    constructor(private httpClient: HttpClient, private dataService: DataService<User>) {
+    constructor(private httpClient: HttpClient, private walletService: WalletService) {
         this.headers = new HttpHeaders({
-            // 'x-access-token': 'L11y3UgFW60jWpuprf1pNzArSAIJiR4M6jZGOq86ln6O4zFYYII4FcoPCzqRa6iG',
             'Content-Type': 'application/json',
             'Accept': 'application/octet-stream',
             'responseType': 'blob'
         });
-
     };
 
-    public issueid(id: any): Observable<any> {
+    public issueId(id: any): Observable<any> {
+        const formData = new FormData();
+        formData.append('card', this.walletService.getCurrentCard());
 
-        return this.httpClient.post('http://localhost:3000/api/system/identities/issue', id, {
+        return this.httpClient.post('http://localhost:3001/api/system/identities/issue', id, {
             observe: 'body',
             responseType: 'blob',
-            headers: this.headers
+            headers: this.headers,
+            withCredentials: true
         });
     }
-
-
-  public issueID(itemToAdd: any): Observable<User> {
-    const NAMESPACE = 'System';
-
-    return this.dataService.add(NAMESPACE, itemToAdd);
-  }
 }

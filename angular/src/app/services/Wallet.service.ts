@@ -7,36 +7,57 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Injectable()
 export class WalletService {
     private NAMESPACE = 'wallet';
+    public cardFile;
+    private headers: HttpHeaders;
+    public user_name: string;
 
-    constructor(
-        private dataService: DataService<User>,
-        public httpClient: HttpClient) {};
+    constructor(public httpClient: HttpClient) {
+        this.headers = new HttpHeaders();
+    };
 
-    public importCard(id: any): Observable<any> {
-        console.log('ASSET:');
-        console.log(id);
+    public importCard(cardData: any, userId: string): Observable<any> {
 
-        const data = {
-            'card' : id.card,
-            'name' : id.name
-        };
-
-        const file = new File([id.card], `${id.name}`, { type: 'application/octect-stream', lastModified: Date.now() });
+        // save the card for future use
+        this.cardFile = new File([cardData], `${userId}`, { type: 'application/octect-stream', lastModified: Date.now() });
 
         const formData = new FormData();
-        formData.append('card', file);
-        
+        formData.append('card', this.cardFile);
         
         // return this.dataService.add(this.NAMESPACE+`/import?name=${data.name}`, formData);
-        const headers = new HttpHeaders();
-        headers.set('Content-Type', 'multipart/form-data');
-        return this.httpClient.post('http://localhost:3000/api/wallet/import', formData, {
+        this.headers.set('Content-Type', 'multipart/form-data');
+
+        return this.httpClient.post('http://localhost:3001/api/wallet/import', formData, {
           withCredentials: true,
-          headers
         })
     }
 
-    public setDefault(id: any): Observable<User> {
-        return this.dataService.add(this.NAMESPACE+`/${id}/setDefault`, id);
+    public setDefault(cardName: string): Observable<any> {
+        console.log(`Setting default wallet to: ${cardName}`);
+
+        this.user_name = cardName.replace('@bronco-cloud', '');
+
+        return this.httpClient.post(`http://localhost:3001/api/wallet/${cardName}/setDefault`, cardName);
     }
+
+    public getAllWallets(): Observable<{}> {
+        const formData = new FormData();
+        formData.append('card', this.cardFile);
+
+        return this.httpClient.get('http://localhost:3001/api/wallet', {
+            withCredentials: true
+        });
+    }
+
+    public getUserWallet(user: string): Observable<any> {
+        const formData = new FormData();
+        formData.append('card', this.cardFile);
+
+        return this.httpClient.get(`http://localhost:3001/api/wallet/${user}`, {
+            withCredentials: true
+        })
+    }
+
+    public getCurrentCard(): File{
+        return this.cardFile;
+    } 
 }

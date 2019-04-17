@@ -1,15 +1,23 @@
 <div>
   <h3>Create New Department Asset</h3>
 
-  <form id="create-form">
-  
+  <form id="create-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
     <mat-form-field id="asset-input">
-      <input matInput placeholder="New Asset Name">
+      <input matInput placeholder="New Asset Name" [(ngModel)]="assetName" name="assetName">
     </mat-form-field>
 
-    <div id="create-button">
-        <button mat-raised-button color="basic">Create Asset</button>  
+    <div>
+      <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
     </div>
-    
+
+    <div>
+      <p *ngIf="messageOn" id="alert-message">Asset Created!</p>
+    </div>
+
+    <div id="create-button">
+      <button mat-raised-button color="basic">Create Asset</button>
+    </div>
+
   </form>
 </div>

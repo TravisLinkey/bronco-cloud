@@ -10,7 +10,7 @@ function getTarget() {
         const restServerURL = process.env.REST_SERVER_URL;
         return restServerURL;
     }
-    return 'http://localhost:3000';
+    return 'http://localhost:3001';
 }
 
 const target = getTarget();

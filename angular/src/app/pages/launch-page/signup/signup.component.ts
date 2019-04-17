@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { SystemService } from 'app/services/System.service';
 import { WalletService } from 'app/services/Wallet.service';
+import { StudentService } from 'app/services/Student.service';
+import { AdminService } from 'app/services/Admin.service';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+
 
 export interface Account {
   value: string;
@@ -14,7 +19,7 @@ export interface Account {
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  providers: [SystemService]
+  providers: [StudentService, AdminService, WalletService, SystemService]
 })
 export class SignupComponent implements OnInit {
   selectedAccount: string;
@@ -22,7 +27,6 @@ export class SignupComponent implements OnInit {
 
   private participant;
   private identity;
-  private cardData;
   private spinnerOn = false;
 
   accounts: Account[] = [
@@ -31,12 +35,14 @@ export class SignupComponent implements OnInit {
   ]
 
   constructor(
+    public studentService: StudentService,
+    public adminService: AdminService,
     public systemService: SystemService,
     public walletService: WalletService,
     public httpClient: HttpClient,
-    private router: Router) {
+    private router: Router
+    ) {
     this.headers = new HttpHeaders({
-      // 'x-access-token': 'L11y3UgFW60jWpuprf1pNzArSAIJiR4M6jZGOq86ln6O4zFYYII4FcoPCzqRa6iG',
       'Content-Type': 'application/json',
       'Accept': 'application/octet-stream',
       'responseType': 'blob'
@@ -44,7 +50,12 @@ export class SignupComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.setAdminDefault();
   }
+
+  async setAdminDefault() {
+    this.walletService.setDefault('admin');
+  };
 
   async onSubmit(form: NgForm) {
     const user_type = form.form.value.account;
@@ -63,19 +74,19 @@ export class SignupComponent implements OnInit {
         'department': 'Computer Science'
       };
 
+      // add the participant to the student registry
+      this.participant = await this.studentService.addParticipant(this.participant).toPromise().catch((error) => {
+        if (error === 'Server error') {
+          console.log('Could not connect to REST server. Please check your configuration details');
+        } else { console.log(error); }
+      });
+
       // create card params
       this.identity = {
         'participant': 'org.cpp.csdept.user.Student#' + form.form.value.cpp_email,
         'userID': form.form.value.name,
         'options': {}
       }
-
-      // add the participant to the student registry
-      this.participant = await this.httpClient.post('http://localhost:3000/api/org.cpp.csdept.user.Student', this.participant).toPromise().catch((error) => {
-        if (error === 'Server error') {
-          console.log('Could not connect to REST server. Please check your configuration details');
-        } else { console.log(error); }
-      });
 
     } else {
 
@@ -89,56 +100,33 @@ export class SignupComponent implements OnInit {
         'department': 'Computer Science'
       };
 
-      // create card params
-      this.identity = {
-        participant: 'org.cpp.csdept.user.Admin#' + form.form.value.cpp_email,
-        userID: form.form.value.name,
-        options: {}
-      }
-
-
-      this.participant = await this.httpClient.post('http://localhost:3000/api/org.cpp.csdept.user.Admin', this.participant).toPromise().catch((error) => {
+      this.participant = await this.adminService.addParticipant(this.participant).toPromise().catch((error) => {
         if (error === 'Server error') {
           console.log('Could not connect to REST server. Please check your configuration details');
         } else { console.log(error); }
       });
+
+      // create card params
+      this.identity = {
+        'participant': 'org.cpp.csdept.user.Admin#' + form.form.value.cpp_email,
+        'userID': form.form.value.name,
+        'options': {}
+      }
     }
-
-    console.log('Identity: ');
-    console.log(this.identity);
-
-    return this.httpClient.post('http://localhost:3000/api/system/identities/issue', this.identity, { responseType: 'blob' }).toPromise()
+    
+    // issue the new user's ID
+    return this.systemService.issueId(this.identity).toPromise()
       .then((cardData) => {
-        console.log('Card Data');
-        console.log(cardData);
-
-        const file = new File([cardData], `${this.identity.userID}`, { type: 'application/octet-stream', lastModified: Date.now() });
-
-        const formData = new FormData();
-        formData.append('card', file);
-
-        const headers = new HttpHeaders();
-        headers.set('Content-Type', 'multipart/form-data');
-
-        return this.httpClient.post('http://localhost:3001/api/wallet/import', formData, {
-          withCredentials: true,
-          headers
-        })
+        
+        // import the card into the wallet
+        return this.walletService.importCard(cardData, this.identity.userId)
           .toPromise()
           .then(() => {
             this.spinnerOn = false;
 
-            console.log(user_type)
-
-            // redirect the user based on what type of credentials they have
-            if(user_type === 'Student')
-              this.router.navigate(['/student']);
-            else if(user_type === 'DeptAdmin') {
-              this.router.navigate(['/departmentadmin']);
-            }
+           this.router.navigate(['/signin']);
           })
       })
-
   }
 
 }

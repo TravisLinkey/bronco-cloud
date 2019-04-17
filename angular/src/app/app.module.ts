@@ -13,15 +13,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 // service components
-import { Add_MoneyService } from './services/Add_Money.service';
-import { AdminService } from './services/Admin.service';
-import { Checkout_ItemService } from './services/Checkout_Item.service';
-import { Create_AssetService } from './services/Create_Asset.service';
-import { Delete_AssetService } from './services/Delete_Asset.service';
-import { Department_AssetService } from './services/Department_Asset.service';
-import { RentalService } from './services/Rental.service';
-import { Return_ItemService } from './services/Return_Item.service';
-import { StudentService } from './services/Student.service';
 import { SystemService } from './services/System.service';
 import { WalletService } from './services/Wallet.service';
 
@@ -102,16 +93,6 @@ import { DeptAdminCheckoutTabComponent } from './pages/dept-admin-page/departmen
   ],
   providers: [
     DataService,
-    Add_MoneyService,
-    AdminService,
-    Checkout_ItemService,
-    Create_AssetService,
-    Delete_AssetService,
-    Department_AssetService,
-    RentalService,
-    Return_ItemService,
-    StudentService,
-    AdminService,
     SystemService,
     WalletService
   ],

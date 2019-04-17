@@ -4,10 +4,7 @@ h1 {
 }
 
 h3 {
-    padding-top: 10px;
-}
-
-mat-form-field {
+    margin: 20px;
 }
 
 #center-column {
@@ -20,11 +17,6 @@ mat-form-field {
     margin-bottom: 15px;
 }
 
-#spinner-wrapper {
-    text-align: center;
-}
-
 #spinner {
-    display: inline-block;
     margin: 0 auto;
 }

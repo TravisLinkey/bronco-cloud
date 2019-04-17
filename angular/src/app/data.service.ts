@@ -9,6 +9,7 @@ export class DataService<Type> {
     private resolveSuffix = '?resolve=true';
     private actionUrl: string;
     private headers: Headers;
+    private currentCard: File;
 
     constructor(private http: Http) {
         this.actionUrl = '/api/';
@@ -16,18 +17,16 @@ export class DataService<Type> {
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
 
-        // to access authenticated rest server
-        // this.headers.append('x-access-token', 'L11y3UgFW60jWpuprf1pNzArSAIJiR4M6jZGOq86ln6O4zFYYII4FcoPCzqRa6iG');
     }
 
-    public getAll(ns: string): Observable<Type[]> {
+    public getAll(invokingCard: File, ns: string): Observable<Type[]> {
         console.log('GetAll ' + ns + ' to ' + this.actionUrl + ns);
         return this.http.get(`${this.actionUrl}${ns}`)
           .map(this.extractData)
           .catch(this.handleError);
     }
 
-    public getSingle(ns: string, id: string): Observable<Type> {
+    public getSingle(invokingCard: File, ns: string, id: string): Observable<Type> {
         console.log('GetSingle ' + ns);
 
         return this.http.get(this.actionUrl + ns + '/' + id + this.resolveSuffix)
@@ -35,7 +34,7 @@ export class DataService<Type> {
           .catch(this.handleError);
     }
 
-    public add(ns: string, asset: Type): Observable<Type> {
+    public add(invokingCard: File, ns: string, asset: Type): Observable<Type> {
         console.log('Entered DataService add');
         console.log('Add ' + ns);
         console.log('asset', asset);
@@ -45,7 +44,7 @@ export class DataService<Type> {
           .catch(this.handleError);
     }
 
-    public update(ns: string, id: string, itemToUpdate: Type): Observable<Type> {
+    public update(invokingCard: File, ns: string, id: string, itemToUpdate: Type): Observable<Type> {
         console.log('Update ' + ns);
         console.log('what is the id?', id);
         console.log('what is the updated item?', itemToUpdate);
@@ -55,7 +54,7 @@ export class DataService<Type> {
           .catch(this.handleError);
     }
 
-    public delete(ns: string, id: string): Observable<Type> {
+    public delete(invokingCard: File, ns: string, id: string): Observable<Type> {
         console.log('Delete ' + ns);
 
         return this.http.delete(this.actionUrl + ns + '/' + id)
