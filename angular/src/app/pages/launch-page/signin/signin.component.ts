@@ -13,6 +13,7 @@ import { QueryService } from 'app/services/Query.service';
 export class SigninComponent implements OnInit {
   private user_type: string;
   private spinnerOn = false;
+  private messageOn = false;
 
   constructor(private router: Router,
     private walletService: WalletService,
@@ -33,13 +34,28 @@ export class SigninComponent implements OnInit {
     if(await this.isStudent(user_name))
     {
       await this.walletService.setDefault(user_name);
-      this.router.navigate(['student']);
+
+        setTimeout(() => {
+          this.messageOn = false;
+        }, 3000);
+
+        this.messageOn = true;
+
+        this.router.navigate(['student']);
+
     }
     
     // check if user is a dept admin
     if(await this.isDeptAdmin(user_name))
     {
       await this.walletService.setDefault(user_name);
+
+      setTimeout(() => {
+        this.messageOn = false;
+      }, 3000);
+
+      this.messageOn = true;
+
       this.router.navigate(['departmentadmin']);  
     }
 

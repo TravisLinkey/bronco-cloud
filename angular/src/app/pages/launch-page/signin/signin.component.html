@@ -7,43 +7,41 @@
       <h1>bronco-cloud</h1>
 
       <form (ngSubmit)="onSubmit(f)" id="submit-form" #f="ngForm">
-          <mat-card id="signin-card">
+        <mat-card id="signin-card">
 
-            <h3>Sign In</h3>
+          <h3>Sign In</h3>
 
-            <div>
-              <button id="signin-button" mat-button color="primary">
-                Verify with Google
-              </button>
-            </div>
+          <div>
+            <button id="signin-button" mat-button color="primary">
+              Verify with Google
+            </button>
+          </div>
 
-            <div class="">
-              <mat-form-field>
-                <input
-                matInput
-                placeholder="Bronco ID"
-                type="text"
-                class="form-control"
-                ngModel
-                name="bronco_Id"
-                required
-                >
-              </mat-form-field>
-            </div>
+          <div class="">
+            <mat-form-field>
+              <input matInput placeholder="Bronco ID" type="text" class="form-control" ngModel name="bronco_Id"
+                required>
+            </mat-form-field>
+          </div>
 
-            <div id="spinner-wrapper">
-              <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
-            </div>
+          <div id="spinner-wrapper">
+            <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
+          </div>
 
-            <div>
-                <button id="submit-button" mat-raised-button color="primary">Log In</button>
-            </div>
 
-            <div>
-                <p>New user? <a [routerLink]="['/signup']">Create Account</a> </p>
-            </div>
+          <div>
+            <p *ngIf="messageOn" id="alert-message">User Signed In!</p>
+          </div>
 
-          </mat-card>
+          <div>
+            <button id="submit-button" mat-raised-button color="primary">Log In</button>
+          </div>
+
+          <div>
+            <p>New user? <a [routerLink]="['/signup']">Create Account</a> </p>
+          </div>
+
+        </mat-card>
       </form>
 
     </div>

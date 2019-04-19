@@ -22,7 +22,7 @@ query isDeptAdmin {
 query getStudentInfo {
   description: "return specific student"
   statement: SELECT org.cpp.csdept.user.Student
-  WHERE (bronco_id == _$broncoID)
+  WHERE (cpp_email == _$cpp_email)
 }
 
 // rentals tab
@@ -42,7 +42,7 @@ query getCurrentRentals {
 query getAdminInfo {
   description: "return specific Admin"
   statement: SELECT org.cpp.csdept.user.Admin
-  WHERE (bronco_id == _$broncoID)
+  WHERE (cpp_email == _$cpp_email)
 }
 
 // rentals tab
@@ -54,7 +54,7 @@ query getCheckedOut {
 // check in tab
 query getUserRentals {
   description: "get all rentals for a single user"
-  statement: SELECT org.cpp.csdept.assets.Department_Asset
+  statement: SELECT org.cpp.csdept.assets.Rental
   WHERE (renter.cpp_email == _$cpp_email)
 }
 

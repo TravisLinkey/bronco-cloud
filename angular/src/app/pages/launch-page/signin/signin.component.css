@@ -28,6 +28,12 @@ h1 {
     margin: 0 auto;
 }
 
+#alert-message {
+    margin: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
 #signin-button {
     margin: 20px;
 }

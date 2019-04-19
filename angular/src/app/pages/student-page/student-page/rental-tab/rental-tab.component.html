@@ -1,18 +1,18 @@
 <h3>Checked Out Assets</h3>
 
 <div class="row">
-  <table class="table table-responsive">
+  <table class="table table-responsive" id="rental-table">
 
     <tr>
       <th>Asset Name</th>
-      <th>Time Checked Out</th>
+      <th style="margin-left: 10px;">Time Checked Out</th>
       <th>Due By</th>
     </tr>
 
     <tr *ngFor="let checkout of checkedOut">
-      <td>{{ checkout.asset_name }}</td>
-      <td>{{ checkout.time_checkedout }}</td>
-      <td>{{ checkout.due }}</td>
+      <td>{{ checkout.department_asset.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</td>
+      <td>{{ checkout.checkout_time }}</td>
+      <td>{{ checkout.due_by }}</td>
     </tr>
   </table>
 </div>

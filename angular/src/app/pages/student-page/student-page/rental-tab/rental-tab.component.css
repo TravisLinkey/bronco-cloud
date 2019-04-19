@@ -2,6 +2,11 @@ h3 {
     text-align: center;
 }
 
-table {
+#rental-table {
     margin-left: 10px;
+}
+
+th {
+    text-align: left;
+    height: 30px;
 }

@@ -21,6 +21,12 @@ h3 {
     margin-bottom: 40px;
 }
 
+#alert-message {
+    margin: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
 #button-segment {
     text-align: center;
     width: 100%;

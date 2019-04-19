@@ -10,13 +10,7 @@ import { WalletService } from 'app/services/Wallet.service';
 })
 export class DeptAdminInfoTabComponent implements OnInit {
 
-  user_info = {
-    // "email" : "ndavarpannah@gmail.com",
-    // "name" : "Nima Davarpannah",
-    // "bronco_Id" : "57246987",
-    // "balance" : "100.00",
-    // "department" : "Computer Science"
-  }
+  private user_info = {};
 
   constructor(private walletService: WalletService, private adminService: AdminService) {}
 

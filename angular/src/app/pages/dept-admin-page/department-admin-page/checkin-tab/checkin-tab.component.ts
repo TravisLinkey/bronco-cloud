@@ -9,21 +9,21 @@ import { QueryService } from 'app/services/Query.service';
   providers: [QueryService]
 })
 export class DeptAdminCheckinTabComponent implements OnInit {
+  private currentOut = [];
 
-  currentOut = [
-    // { "asset_name" : "Linux_Machine", "asset_Id" : "12345" },
-    // { "asset_name" : "Holo_Lenses", "asset_Id" : "12345" },
-  ];
-
-  constructor(private queryService: QueryService) { }
+  constructor(private queryService: QueryService) {}
 
   ngOnInit() {}
 
   async onSubmit(form: NgForm) {
     const user_name = form.form.value.user_name;
 
+    console.log(user_name);
+
     // look up student rentals
     this.currentOut = await this.queryService.getUserRentals(user_name).toPromise();
+
+    console.log(this.currentOut);
   }
 
 }

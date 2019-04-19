@@ -50,6 +50,7 @@ import { DeptAdminRentalsTabComponent } from './pages/dept-admin-page/department
 import { DeptAdminCreateTabComponent } from './pages/dept-admin-page/department-admin-page/create-tab/create-tab.component';
 import { DeptAdminCheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
 import { DeptAdminCheckoutTabComponent } from './pages/dept-admin-page/department-admin-page/checkout-tab/checkout-tab.component';
+import { DepartmentAdminPageService } from './pages/dept-admin-page/department-admin-page/department-admin-page.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { DeptAdminCheckoutTabComponent } from './pages/dept-admin-page/departmen
   providers: [
     DataService,
     SystemService,
-    WalletService
+    WalletService,
+    DepartmentAdminPageService
   ],
   bootstrap: [AppComponent]
 })

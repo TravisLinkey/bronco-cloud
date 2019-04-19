@@ -36,7 +36,7 @@ export class WalletService {
 
         this.user_name = cardName.replace('@bronco-cloud', '');
 
-        return this.httpClient.post(`http://localhost:3001/api/wallet/${cardName}/setDefault`, cardName);
+        return this.httpClient.post(`http://localhost:3001/api/wallet/${cardName}/setDefault`, this.user_name);
     }
 
     public getAllWallets(): Observable<{}> {

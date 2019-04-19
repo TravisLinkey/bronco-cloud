@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WalletService } from 'app/services/Wallet.service';
 import { RentalService } from 'app/services/Rental.service';
 import { Rental } from 'app/org.cpp.csdept.assets';
+import { DepartmentAdminPageService } from '../department-admin-page.service';
 
 @Component({
   selector: 'app-dept-admin-rentals-tab',
@@ -11,21 +12,33 @@ import { Rental } from 'app/org.cpp.csdept.assets';
 })
 export class DeptAdminRentalsTabComponent implements OnInit {
   current_out: Rental[]
-  // [
-  //   { "department_asset" : "Macbook", "checked_out" : "10:15:2019", "renter" : "Travis Linkey", "due_by" : "10:17:2019"},
-  //   { "department_asset" : "Linux-Machine", "checked_out" : "10:15:2019", "renter" : "Zurone Chen", "due_by" : "10:17:2019"},
-  //   { "department_asset" : "VR_Goggles", "checked_out" : "10:15:2019", "renter" : "David Barnes", "due_by" : "10:17:2019"},
-  //   { "department_asset" : "Mini_Drone", "checked_out" : "10:15:2019", "renter" : "Nima Davarpannah", "due_by" : "10:17:2019"},
-  // ]
+  private currentTime
 
-  constructor(private walletService: WalletService, private rentalService: RentalService) { }
+  constructor(
+    private walletService: WalletService,
+    private rentalService: RentalService,
+    private departmentAssetPageService: DepartmentAdminPageService
+    ) {}
 
-  ngOnInit() {
-    this.loadAllRentals();
+  async ngOnInit() {
+    await this.loadAllRentals();
+    this.setCurrentTime();
+    this.departmentAssetPageService.rentalCreated.subscribe(
+      // reload the rentals array
+      async () => {
+        console.log('Reload assets triggered');
+        await this.loadAllRentals();
+      }
+    );
   }
 
   async loadAllRentals() {
     this.current_out = await this.rentalService.getAll().toPromise();
+  }
+
+  setCurrentTime() {
+    var date = new Date();
+    this.currentTime = date.getHours();
   }
 
 }

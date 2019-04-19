@@ -10,7 +10,8 @@ asset Department_Asset identified by asset_Id {
 
 asset Rental identified by checkout_ID {
 	o String checkout_ID
-  	o Integer due_by
+  	o String checkout_time
+  	o String due_by
   	--> Asset department_asset
     --> Student renter
 }

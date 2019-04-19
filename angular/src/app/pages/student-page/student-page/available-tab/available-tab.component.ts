@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletService } from 'app/services/Wallet.service';
-import { Department_AssetService } from 'app/services/Department_Asset.service';
+import { QueryService } from 'app/services/Query.service';
 
 @Component({
   selector: 'app-available-tab',
   templateUrl: './available-tab.component.html',
   styleUrls: ['./available-tab.component.css'],
-  providers: [Department_AssetService]
+  providers: [QueryService]
 })
 
 export class StudentAvailableTabComponent implements OnInit {
@@ -20,14 +20,14 @@ export class StudentAvailableTabComponent implements OnInit {
 
   textValue: 'This is an element';
 
-  constructor(private walletService: WalletService, private deptAssetService: Department_AssetService) { }
+  constructor(private walletService: WalletService, private queryService: QueryService) { }
 
   ngOnInit() {
     this.loadAvailable();
   }
 
   async loadAvailable() {
-    const assets = await this.deptAssetService.getAll().toPromise();
+    const assets = await this.queryService.getAllAvailableAssets().toPromise();
     this.dept_assets = assets;
   }
 }

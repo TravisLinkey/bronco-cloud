@@ -13,11 +13,12 @@
           <tr *ngFor="let checkout of current_out">
             <td>{{ checkout.department_asset.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</td>
             <!-- <td>{{ checkout.checked_out }}</td> -->
-            <td>{{ checkout.due_by }}</td>
+            <td>{{ checkout.checkout_time }}</td>
             <td>{{ checkout.renter.replace('resource:org.cpp.csdept.user.Student#', '') }}</td>
+            <td>{{ checkout.due_by }}</td>
             <!-- <td>
               <label [ngClass]="{
-                'true' : (checkout.due_by - checkout.checked_out) <= '0',
+                'true' : (checkout.due_by - checkout.checked_out),
                 'false' : checkout.overdue == 'false'
               }">
                   {{ checkout.overdue.toUpperCase() }}

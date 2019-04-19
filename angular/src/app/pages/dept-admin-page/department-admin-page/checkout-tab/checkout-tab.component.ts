@@ -1,66 +1,90 @@
 import { Component, ViewChildren, QueryList, ElementRef, AfterViewInit, OnInit } from '@angular/core';
-import { Department_AssetService } from 'app/services/Department_Asset.service';
 import { NgForm } from '@angular/forms';
 import { Checkout_AssetService } from 'app/services/Checkout_Asset.service';
-import { Observable } from 'rxjs';
-
+import { QueryService } from 'app/services/Query.service';
+import { DepartmentAdminPageService } from '../department-admin-page.service';
 
 @Component({
   selector: 'app-dept-admin-checkout-tab',
   templateUrl: './checkout-tab.component.html',
   styleUrls: ['./checkout-tab.component.css'],
-  providers: [Department_AssetService, Checkout_AssetService]
+  providers: [QueryService, Checkout_AssetService]
 })
 export class DeptAdminCheckoutTabComponent implements OnInit {
   @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
  
   private transaction;
   private spinnerOn = false;
+  private checkoutMessage = false;
+  private dept_assets = [];
 
-  dept_assets = [
-    // { "asset_name" : "Macbook", "available" : 1 },
-    // { "asset_name" : "Computer Monitor", "available" : 3 },
-    // { "asset_name" : "Linux Machine", "available" : 3 },
-    // { "asset_name" : "VR Glasses", "available" : 6 },
-  ];
+  constructor(
+    private queryService: QueryService,
+    private checkoutAssetService: Checkout_AssetService,
+    private departmentAdminPageService: DepartmentAdminPageService,
+    ) {}
 
-  constructor(private assetService: Department_AssetService, private checkoutAssetService: Checkout_AssetService) { }
+  async ngOnInit() {
+    // subscribe to button-click-event subject
+    this.departmentAdminPageService.assetCreated.subscribe(
+      async () => {
+        console.log('UPDATING ASSETS');
+        await this.loadAllAssets();
+      });
 
-  ngOnInit() {
-    this.loadAllAssets();
+      await this.loadAllAssets();
   }
 
   async loadAllAssets() {
-    this.dept_assets = await this.assetService.getAll().toPromise();
+    this.dept_assets = await this.queryService.getAllAvailableAssets().toPromise()
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   async onSubmit(form: NgForm) {
+    this.spinnerOn = true;
     const user_name = form.form.value.user_name;
-    const asset_name = this.getAssetName();
+    const asset_Id = this.getAssetName();
 
-    // this.transaction = {
-    //   $class: 'org.cpp.csdept.assets.Checkout_Item',
-    //   'renter': user_name,
-    //   'department_asset': asset_name,
-    //   'transactionId': '',
-    //   'timestamp': ''
-    // };
-
-    const asset = 'org.cpp.csdept.assets.Department_Asset#Rocks:2019-3-17::17::26'
+    // TODO - need some verification that the student exists
+    // var student = await this.queryService.getStudentInfo(user_name).toPromise();
+    // console.log(student);
 
     this.transaction = {
       $class: 'org.cpp.csdept.assets.Checkout_Item',
-      'renter': 'org.cpp.csdept.user.Student#bill',
-      'department_asset': asset,
+      'renter': `org.cpp.csdept.user.Student#${user_name}`,
+      'department_asset': `org.cpp.csdept.assets.Department_Asset#${asset_Id}`,
       'transactionId': null,
       'timestamp': null
     };
-
-    console.log(this.transaction);
     
-    // TODO - checkout the item for the user
-    this.checkoutAssetService.addTransaction(this.transaction);
+    // Checkout the item for the user
+    await this.checkoutAssetService.addTransaction(this.transaction).toPromise()
+    .catch((error) => {
+      console.log(error);
+    })
+    // Reset the spinner and display the checkout message
+    .then(() => {
+      this.spinnerOn = false;
+
+      setTimeout(()=> {
+        this.checkoutMessage = false;
+      }, 3000);
+
+      this.checkoutMessage = true;
+    })
+    // Reload the assets after new checkout was created
+    .then(async () => {
+      await this.loadAllAssets();
+    })
+    // Emit asset created event
+    .then(() => {
+      this.departmentAdminPageService.rentalCreated.next();
+    })
   }
+
+  async checkoutAsset(form: NgForm) {}
 
   getAssetName() {
     var value;
@@ -80,7 +104,5 @@ export class DeptAdminCheckoutTabComponent implements OnInit {
         element.nativeElement.checked = false;
     });
   }
-
-
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Create_AssetService } from 'app/services/Create_Asset.service';
 import { WalletService } from 'app/services/Wallet.service';
-import { SELECT_PANEL_PADDING_X } from '@angular/material';
+import { DepartmentAdminPageService } from '../department-admin-page.service';
 
 @Component({
   selector: 'app-dept-admin-create-tab',
@@ -15,7 +15,11 @@ export class DeptAdminCreateTabComponent implements OnInit {
   private messageOn = false;
   private cardData;
 
-  constructor(private createAssetService: Create_AssetService, private walletService: WalletService) {
+  constructor(
+    private createAssetService: Create_AssetService,
+    private walletService: WalletService,
+    private departmentAdminPageService: DepartmentAdminPageService
+    ) {
     this.cardData = walletService.cardFile;
   }
 
@@ -42,6 +46,10 @@ export class DeptAdminCreateTabComponent implements OnInit {
 
       console.log(`${asset.asset_name} Asset Created`);
       this.messageOn = true;
+    })
+    .then(() => {
+      console.log('Emmitting ASSET CREATION event');
+      this.departmentAdminPageService.assetCreated.next();
     })
     
   }

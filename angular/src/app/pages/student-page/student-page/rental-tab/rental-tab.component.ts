@@ -31,9 +31,15 @@ export class StudentRentalTabComponent implements OnInit {
     const returned = await this.rentalService.getAll().toPromise();
     
     console.log(returned);
-    if(returned === [])
+
+    if(returned.length == 0)
     {
+      console.log('NOTHING THERE');
       this.checkedOut = []
+    }
+    else
+    {
+      this.checkedOut = returned;
     }
   }
 
