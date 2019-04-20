@@ -27,18 +27,12 @@ export class DataService<Type> {
     }
 
     public getSingle(invokingCard: File, ns: string, id: string): Observable<Type> {
-        console.log('GetSingle ' + ns);
-
         return this.http.get(this.actionUrl + ns + '/' + id + this.resolveSuffix)
           .map(this.extractData)
           .catch(this.handleError);
     }
 
     public add(invokingCard: File, ns: string, asset: Type): Observable<Type> {
-        console.log('Entered DataService add');
-        console.log('Add ' + ns);
-        console.log('asset', asset);
-
         return this.http.post(this.actionUrl + ns, asset)
           .map(this.extractData)
           .catch(this.handleError);

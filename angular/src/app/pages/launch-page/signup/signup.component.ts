@@ -74,14 +74,14 @@ export class SignupComponent implements OnInit {
         'department': 'Computer Science'
       };
 
-      // add the participant to the student registry
+      // Add the participant to the student registry
       this.participant = await this.studentService.addParticipant(this.participant).toPromise().catch((error) => {
         if (error === 'Server error') {
           console.log('Could not connect to REST server. Please check your configuration details');
         } else { console.log(error); }
       });
 
-      // create card params
+      // Create card params
       this.identity = {
         'participant': 'org.cpp.csdept.user.Student#' + form.form.value.cpp_email,
         'userID': form.form.value.name,
@@ -100,6 +100,7 @@ export class SignupComponent implements OnInit {
         'department': 'Computer Science'
       };
 
+      // Add the participant to the respective registry
       this.participant = await this.adminService.addParticipant(this.participant).toPromise().catch((error) => {
         if (error === 'Server error') {
           console.log('Could not connect to REST server. Please check your configuration details');
@@ -114,11 +115,11 @@ export class SignupComponent implements OnInit {
       }
     }
     
-    // issue the new user's ID
+    // Issue the new user's ID
     return this.systemService.issueId(this.identity).toPromise()
       .then((cardData) => {
         
-        // import the card into the wallet
+        // Import the card into the wallet
         return this.walletService.importCard(cardData, this.identity.userId)
           .toPromise()
           .then(() => {

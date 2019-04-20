@@ -3,6 +3,13 @@ h3 {
     margin: 20px;
 }
 
+th {
+    margin: 0 auto;
+}
+
+td {
+    text-align: center;
+}
 
 #checkout-form {
     text-align: center;

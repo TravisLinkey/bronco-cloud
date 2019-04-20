@@ -46,6 +46,7 @@ export class DeptAdminCreateTabComponent implements OnInit {
 
       console.log(`${asset.asset_name} Asset Created`);
       this.messageOn = true;
+      form.form.reset();
     })
     .then(() => {
       console.log('Emmitting ASSET CREATION event');
