@@ -2,13 +2,17 @@
 
 <div class="row">
     <table class="table table-responsive">
-      <tr class="thread-cols">
+      
+      <tr *ngIf="(dept_assets == 0)">
+        <p id="checkout-message">No Assets to Checkout</p>
+      </tr>
+      
+      <tr class="thread-cols" *ngIf="(dept_assets.length > 0)">
         <th>Asset Name:</th>
       </tr>
 
-      <tr *ngFor="let asset of dept_assets">
+      <tr *ngFor="let asset of dept_assets" align="left">
         <td class="asset-properties">{{ asset.asset_name }}</td>
-        <td class="asset-properties">{{ asset.available }}</td>
       </tr>
 
     </table>

@@ -1,12 +1,9 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "app/data.service";
-import { User } from "app/org.cpp.csdept.user";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class WalletService {
-    private NAMESPACE = 'wallet';
     public cardFile;
     private headers: HttpHeaders;
     public user_name: string;
@@ -32,9 +29,8 @@ export class WalletService {
     }
 
     public setDefault(cardName: string): Observable<any> {
-        console.log(`Setting default wallet to: ${cardName}`);
-
         this.user_name = cardName.replace('@bronco-cloud', '');
+        this.importCard(cardName, this.user_name);
 
         return this.httpClient.post(`http://localhost:3001/api/wallet/${cardName}/setDefault`, this.user_name);
     }

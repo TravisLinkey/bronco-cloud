@@ -15,12 +15,18 @@ td {
     text-align: center;
 }
 
+#asset-message {
+    text-align: center;
+    color: blue;
+    font-weight: bold;
+}
+
 .table {
     margin: 0px;
 }
 
 #user-input {
-    margin-bottom: 20px;
+    margin: 20px;
 }
 
 #spinner {

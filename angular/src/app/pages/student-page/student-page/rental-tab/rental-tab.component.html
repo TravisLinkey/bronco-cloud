@@ -3,16 +3,24 @@
 <div class="row">
   <table class="table table-responsive" id="rental-table">
 
-    <tr>
+    <tr *ngIf="(current_out.length == 0)">
+      <p id="rental-message">No Rentals to Display</p>
+    </tr>
+    
+    <tr *ngIf="(current_out.length > 0)">
       <th>Asset Name</th>
       <th style="margin-left: 10px;">Time Checked Out</th>
       <th>Due By</th>
     </tr>
 
-    <tr *ngFor="let checkout of checkedOut">
-      <td>{{ checkout.department_asset.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</td>
-      <td>{{ checkout.checkout_time }}</td>
-      <td>{{ checkout.due_by }}</td>
-    </tr>
+    <tr *ngFor="let checkout of current_out" align="left">
+      <td>
+          <ul *ngFor="let assets of checkout.department_assets" >
+              <li>{{ assets.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</li>
+            </ul>
+      </td>
+    <td>{{ checkout.checkout_time }}</td>
+    <td>{{ checkout.due_by }}</td>
+
   </table>
 </div>

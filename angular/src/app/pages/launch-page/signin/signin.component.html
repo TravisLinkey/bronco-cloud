@@ -30,7 +30,7 @@
 
 
           <div>
-            <p *ngIf="messageOn" id="alert-message">User Signed In!</p>
+            <p *ngIf="messageActive()" id="alert-message">{{ alertMessage.message }}</p>
           </div>
 
           <div>

@@ -13,28 +13,27 @@ export class AdminService {
   private currentCard;
 
   constructor(private dataService: DataService<Admin>, private walletService: WalletService) {
-    this.currentCard = walletService.getCurrentCard();
-    console.log(`current card: ${this.currentCard}`);
+    this.currentCard = this.walletService.cardFile;
   };
 
   public getAll(): Observable<Admin[]> {
-    return this.dataService.getAll(this.currentCard, this.NAMESPACE);
+    return this.dataService.getAll(this.NAMESPACE);
   }
 
   public getparticipant(id: any): Observable<Admin> {
-    return this.dataService.getSingle(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.getSingle(this.NAMESPACE, id);
   }
 
   public addParticipant(itemToAdd: any): Observable<Admin> {
-    return this.dataService.add(this.currentCard, this.NAMESPACE, itemToAdd);
+    return this.dataService.add(this.NAMESPACE, itemToAdd);
   }
 
   public updateParticipant(id: any, itemToUpdate: any): Observable<Admin> {
-    return this.dataService.update(this.currentCard, this.NAMESPACE, id, itemToUpdate);
+    return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
   }
 
   public deleteParticipant(id: any): Observable<Admin> {
-    return this.dataService.delete(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.delete(this.NAMESPACE, id);
   }
 
 }

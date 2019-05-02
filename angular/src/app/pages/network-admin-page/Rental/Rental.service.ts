@@ -17,23 +17,23 @@ export class RentalService {
   };
 
   public getAll(): Observable<Rental[]> {
-    return this.dataService.getAll(this.currentCard, this.NAMESPACE);
+    return this.dataService.getAll(this.NAMESPACE);
   }
 
   public getAsset(id: any): Observable<Rental> {
-    return this.dataService.getSingle(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.getSingle(this.NAMESPACE, id);
   }
 
   public addAsset(itemToAdd: any): Observable<Rental> {
-    return this.dataService.add(this.currentCard, this.NAMESPACE, itemToAdd);
+    return this.dataService.add(this.NAMESPACE, itemToAdd);
   }
 
   public updateAsset(id: any, itemToUpdate: any): Observable<Rental> {
-    return this.dataService.update(this.currentCard, this.NAMESPACE, id, itemToUpdate);
+    return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
   }
 
   public deleteAsset(id: any): Observable<Rental> {
-    return this.dataService.delete(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.delete(this.NAMESPACE, id);
   }
 
 }

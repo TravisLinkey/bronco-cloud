@@ -69,7 +69,7 @@ rule StudentsReadAssets {
   	participant(p): "org.cpp.csdept.user.Student"
   	operation: READ, UPDATE
   	resource(r): "org.cpp.csdept.assets.Department_Asset"
-  	condition:  (r.in_use == false || p.cpp_email == r.renter.cpp_email)
+  	condition:  (r.in_use == false || p.cpp_email === r.renter)
   	action: ALLOW
 }
 // Students can checkout assets
@@ -82,11 +82,11 @@ rule StudentsCreateCheckout {
 }
 // Students can CREATE/READ rentals
 rule StudentsRentalPriv {
-  	description: "Students can checkout assets"
+  	description: "Users can checkout assets"
   	participant(p): "org.cpp.csdept.user.Student"
-  	operation: CREATE,READ
+  	operation: CREATE, READ
     resource(r): "org.cpp.csdept.assets.Rental"
-  	condition: (p.cpp_email == r.renter.cpp_email)
+  	condition: (p.cpp_email == r.renter)
   	action: ALLOW
 }
 // Students can return assets
@@ -95,6 +95,6 @@ rule StudentsCreateReturn {
   	participant(p): "org.cpp.csdept.user.Student"
   	operation: CREATE,READ
     resource(r): "org.cpp.csdept.assets.Return_Item"
-  	condition: (p.cpp_email == r.renter.cpp_email)
+  	condition: (p.cpp_email === r.renter)
   	action: ALLOW
 }

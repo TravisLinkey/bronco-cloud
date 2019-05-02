@@ -3,22 +3,49 @@
 
   <form id="checkin-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
 
-    <mat-form-field id="user-input">
-      <input matInput placeholder="Student Name" [(ngModel)]="user_name" name="user_name">
-    </mat-form-field>
+    <div>
+      <mat-form-field id="user-input">
+        <input matInput placeholder="Student Name" [(ngModel)]="user_name" name="user_name">
+      </mat-form-field>
+      <button mat-raised-button id="search-button" type="button" (click)="searchStudent(f)">Search</button>
+    </div>
 
     <div>
-        <table>
-          <tr *ngFor="let option of options" id="option-table">
-            <th> {{ option.asset_name }} </th>
-            <th> {{ option.asset_Id }} </th>
-            <mat-checkbox class="option-item"></mat-checkbox>
+      <mat-card *ngIf="returnButtonVisible">
+          <table>
+              <th>Asset Name</th>
+              <th>Checkin</th>
+          <tr align="left" *ngFor="let option of currentOut" id="option-table">
+            <td height="50">
+              <ul *ngFor="let asset of option.department_assets">
+                <li>
+                    {{ asset.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}
+                </li>
+              </ul>
+  
+            </td>
+
+            <td height="50">
+                <mat-checkbox class="option-item"></mat-checkbox>
+            </td>
+            
+
           </tr>
         </table>
+
+      </mat-card>
+    </div>
+
+    <div>
+        <mat-spinner id="spinner" *ngIf="spinnerOn" [diameter]="50"></mat-spinner>
+    </div>
+
+    <div>
+        <p *ngIf="checkinMessage.showMessage" id="alert-message">{{ checkinMessage.message }}</p>
     </div>
 
     <div id="create-button">
-      <button mat-raised-button color="primary">Return Asset</button>
+      <button id="submit-button" mat-raised-button color="primary" *ngIf="returnButtonVisible" type="submit">Return Asset</button>
     </div>
 
   </form>

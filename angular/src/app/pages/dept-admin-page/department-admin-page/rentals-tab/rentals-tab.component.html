@@ -1,29 +1,31 @@
 <div class="row">
-      <h3>Checked Out Assets</h3>
+  <h3>Checked Out Assets</h3>
 
-      <table class="table table-responsive">
-          <tr class="thread-cols">
-            <th>Asset Name</th>
-            <th>Checked Out</th>
-            <th>Owner</th>
-            <th>Due</th>
-            <th>Overdue</th>
-          </tr>
+  <table class="table table-responsive">
+    <tr *ngIf="current_out.length == 0">
+      <p id="rental-message">No Rentals to Display</p>
+    </tr>
 
-          <tr *ngFor="let checkout of current_out">
-            <td>{{ checkout.department_asset.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</td>
-            <!-- <td>{{ checkout.checked_out }}</td> -->
-            <td>{{ checkout.checkout_time }}</td>
-            <td>{{ checkout.renter.replace('resource:org.cpp.csdept.user.Student#', '') }}</td>
-            <td>{{ checkout.due_by }}</td>
-            <!-- <td>
-              <label [ngClass]="{
-                'true' : (checkout.due_by - checkout.checked_out),
-                'false' : checkout.overdue == 'false'
-              }">
-                  {{ checkout.overdue.toUpperCase() }}
-              </label>
-            </td> -->
-          </tr>
-      </table>
+    <tr class="thread-cols" *ngIf="current_out.length > 0">
+      <th>Owner</th>
+      <th>Asset Name</th>
+      <th>Checked Out</th>
+      <th>Due</th>
+      <th>Overdue</th>
+    </tr>
+
+      <tr *ngFor="let checkout of current_out">
+          <td>{{ checkout.renter }}</td>
+        <td>
+            <ul *ngFor="let assets of checkout.department_assets" >
+                <li>{{ assets.replace('resource:org.cpp.csdept.assets.Department_Asset#', '') }}</li>
+              </ul>
+        </td>
+      <td>{{ checkout.checkout_time }}</td>
+      <td>{{ checkout.due_by }}</td>
+      <td [ngStyle]="{'color': this.getNumber(checkout.due_by) === 'true' ? 'red' : 'grey' }">{{ this.getNumber(checkout.due_by).toUpperCase() }}</td>
+     
+    </tr>
+
+  </table>
 </div>

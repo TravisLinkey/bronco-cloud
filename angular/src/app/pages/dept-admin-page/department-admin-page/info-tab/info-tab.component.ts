@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'app/services/Admin.service';
 import { WalletService } from 'app/services/Wallet.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dept-admin-info-tab',
@@ -12,7 +13,11 @@ export class DeptAdminInfoTabComponent implements OnInit {
 
   private user_info = {};
 
-  constructor(private walletService: WalletService, private adminService: AdminService) {}
+  constructor(
+    private walletService: WalletService,
+    private adminService: AdminService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
     this.loadUserInfo();
@@ -20,15 +25,24 @@ export class DeptAdminInfoTabComponent implements OnInit {
 
   async loadUserInfo() {
     const user_name = this.walletService.user_name;
-    const admin = await this.adminService.getparticipant(user_name).toPromise();
+    
+    // if user not found: navigate to the signin screen
+    var admin = await this.adminService.getparticipant(user_name).toPromise()
+    .catch((error) => {
+      if(error === '404 - Not Found') {
+        this.router.navigate(['signin']);
+        }
+      })
 
-    this.user_info = {
-      name: admin.name,
-      email: admin.cpp_email,
-      bronco_Id: admin.bronco_id,
-      balance: admin.balance,
-      department: admin.department
+    if(admin) {
+      this.user_info = {
+        name: admin.name,
+        email: admin.cpp_email,
+        bronco_Id: admin.bronco_id,
+        balance: admin.balance,
+        department: admin.department
+      } 
     }
-  }
 
-}
+  }  
+ }

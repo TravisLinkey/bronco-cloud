@@ -17,50 +17,25 @@
 
         <div>
           <mat-form-field>
-            <input matInput
-            placeholder="Bronco Name"
-            type="text"
-            class="form-control"
-            ngModel
-            name="cpp_email"
-            required
-            >
+            <input matInput placeholder="Bronco Name" type="text" class="form-control" ngModel name="cpp_email"
+              required>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field>
-            <input matInput
-            placeholder="Full Name"
-            type="text"
-            class="form-control"
-            ngModel
-            name="name"
-            required
-            >
+            <input matInput placeholder="Full Name" type="text" class="form-control" ngModel name="name" required>
           </mat-form-field>
         </div>
 
         <div>
           <mat-form-field>
-            <input matInput
-            placeholder="Bronco Id"
-            type="text"
-            class="form-control"
-            ngModel
-            name="bronco_id"
-            required
-            >
+            <input matInput placeholder="Bronco Id" type="text" class="form-control" ngModel name="bronco_id" required>
           </mat-form-field>
         </div>
 
         <mat-form-field>
-          <mat-select
-          placeholder="Account Type"
-          [(ngModel)]="selectedAccount"
-          name="account"
-          required
-          >
+          <mat-select placeholder="Account Type" [(ngModel)]="selectedAccount" name="account" required>
             <mat-option *ngFor="let account of accounts" [value]="account.value">{{account.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -69,14 +44,14 @@
           <mat-spinner *ngIf="spinnerOn" [diameter]="50" id="spinner"></mat-spinner>
         </div>
 
+        <div>
+          <p *ngIf="messageActive()" id="alert-message">{{ alertMessage.message }}</p>
+        </div>
+
 
         <div>
-          <button
-          id="create-account-button"
-          mat-raised-button
-          color="primary"
-          [disabled]="!f.valid"
-          >Create Account</button>
+          <button id="create-account-button" mat-raised-button color="primary" [disabled]="!f.valid">Create
+            Account</button>
         </div>
 
       </mat-card>

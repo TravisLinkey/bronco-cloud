@@ -5,15 +5,15 @@ asset Department_Asset identified by asset_Id {
   	o String asset_Id
   	o String asset_name
     o Boolean in_use default = false
-    --> User renter optional
+    o String renter optional
 }
 
 asset Rental identified by checkout_ID {
 	o String checkout_ID
   	o String checkout_time
   	o String due_by
-  	--> Asset department_asset
-    --> Student renter
+    o String renter
+  	--> Asset[] department_assets
 }
 
 transaction Create_Asset {
@@ -37,5 +37,5 @@ event Item_Returned {
 
 abstract transaction Item_Event {
   	--> Student renter
-  	--> Asset department_asset
+  	--> Asset[] department_assets
 }

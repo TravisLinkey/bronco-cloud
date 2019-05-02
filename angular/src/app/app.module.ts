@@ -6,15 +6,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { DataService } from './data.service';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // angular material imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-
-// service components
-import { SystemService } from './services/System.service';
-import { WalletService } from './services/Wallet.service';
 
 // network admin page components
 import { DropdownBarComponent } from './pages/network-admin-page/dropdown-bar/dropdown-bar.component';
@@ -50,7 +46,20 @@ import { DeptAdminRentalsTabComponent } from './pages/dept-admin-page/department
 import { DeptAdminCreateTabComponent } from './pages/dept-admin-page/department-admin-page/create-tab/create-tab.component';
 import { DeptAdminCheckinTabComponent } from './pages/dept-admin-page/department-admin-page/checkin-tab/checkin-tab.component';
 import { DeptAdminCheckoutTabComponent } from './pages/dept-admin-page/department-admin-page/checkout-tab/checkout-tab.component';
+
+// service components
+import { SystemService } from './services/System.service';
+import { WalletService } from './services/Wallet.service';
+import { RentalService } from './services/Rental.service';
 import { DepartmentAdminPageService } from './pages/dept-admin-page/department-admin-page/department-admin-page.service';
+import { StudentService } from './services/Student.service';
+import { QueryService } from './services/Query.service';
+import { Create_AssetService } from './services/Create_Asset.service';
+import { Department_AssetService } from './services/Department_Asset.service';
+import { Checkout_AssetService } from './services/Checkout_Asset.service';
+import { AdminService } from './services/Admin.service';
+import { Checkin_AssetService } from './services/Checkin_Asset.service';
+import { ErrorInterceptor } from './pages/shared/errors.interceptor';
 
 @NgModule({
   declarations: [
@@ -93,10 +102,19 @@ import { DepartmentAdminPageService } from './pages/dept-admin-page/department-a
     HttpClientModule,
   ],
   providers: [
+    AdminService,
+    Checkout_AssetService,
+    Create_AssetService,
+    Department_AssetService,
     DataService,
+    QueryService,
+    RentalService,
+    StudentService,
     SystemService,
     WalletService,
-    DepartmentAdminPageService
+    DepartmentAdminPageService,
+    Checkin_AssetService,
+    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { WalletService } from "./Wallet.service";
 import { DataService } from "app/data.service";
-import { User, Student } from "app/org.cpp.csdept.user";
+import { User } from "app/org.cpp.csdept.user";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class QueryService {
@@ -12,9 +13,15 @@ export class QueryService {
 
     constructor(private dataService: DataService<User>,
         private walletService: WalletService,
-        private httpClient: HttpClient) {
-        this.currentCard = walletService.cardFile;
-        console.log(`current card: ${this.currentCard}`);
+        private httpClient: HttpClient,
+        private router: Router
+        ) {
+        
+            this.loadCurrentCard();
+    }
+
+    async loadCurrentCard() {
+        this.currentCard = await this.walletService.getCurrentCard();
     }
 
     public isStudent(cpp_email: string): Observable<any> {

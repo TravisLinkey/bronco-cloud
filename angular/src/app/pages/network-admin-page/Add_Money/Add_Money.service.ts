@@ -17,23 +17,23 @@ export class Add_MoneyService {
   };
 
   public getAll(): Observable<Add_Money[]> {
-      return this.dataService.getAll(this.currentCard, this.NAMESPACE);
+      return this.dataService.getAll(this.NAMESPACE);
   }
 
   public getTransaction(id: any): Observable<Add_Money> {
-    return this.dataService.getSingle(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.getSingle(this.NAMESPACE, id);
   }
 
   public addTransaction(itemToAdd: any): Observable<Add_Money> {
-    return this.dataService.add(this.currentCard, this.NAMESPACE, itemToAdd);
+    return this.dataService.add(this.NAMESPACE, itemToAdd);
   }
 
   public updateTransaction(id: any, itemToUpdate: any): Observable<Add_Money> {
-    return this.dataService.update(this.currentCard, this.NAMESPACE, id, itemToUpdate);
+    return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
   }
 
   public deleteTransaction(id: any): Observable<Add_Money> {
-    return this.dataService.delete(this.currentCard, this.NAMESPACE, id);
+    return this.dataService.delete(this.NAMESPACE, id);
   }
 
 }

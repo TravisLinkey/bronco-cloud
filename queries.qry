@@ -28,8 +28,8 @@ query getStudentInfo {
 // rentals tab
 query getCurrentRentals {
   description: "get all currently rented department assets for a single student"
-  statement: SELECT org.cpp.csdept.assets.Department_Asset
-  WHERE (renter.cpp_email == _$cpp_email)
+  statement: SELECT org.cpp.csdept.assets.Rental
+  WHERE (renter == _$cpp_email)
 }
 
 // available tab: use -> getAllAvailableAssets() in dept admin section
@@ -55,7 +55,7 @@ query getCheckedOut {
 query getUserRentals {
   description: "get all rentals for a single user"
   statement: SELECT org.cpp.csdept.assets.Rental
-  WHERE (renter.cpp_email == _$cpp_email)
+  WHERE (renter == _$cpp_email)
 }
 
 // checkout tab

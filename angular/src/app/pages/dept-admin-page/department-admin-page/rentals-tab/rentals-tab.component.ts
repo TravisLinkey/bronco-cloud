@@ -11,8 +11,8 @@ import { DepartmentAdminPageService } from '../department-admin-page.service';
   providers: [RentalService]
 })
 export class DeptAdminRentalsTabComponent implements OnInit {
-  current_out: Rental[]
-  private currentTime
+  private current_out = []
+  private current_time
 
   constructor(
     private walletService: WalletService,
@@ -23,13 +23,21 @@ export class DeptAdminRentalsTabComponent implements OnInit {
   async ngOnInit() {
     await this.loadAllRentals();
     this.setCurrentTime();
+
+    // subscribe to rental created subject
     this.departmentAssetPageService.rentalCreated.subscribe(
       // reload the rentals array
       async () => {
-        console.log('Reload assets triggered');
         await this.loadAllRentals();
       }
     );
+
+    // subscribe to rental created subject
+    this.departmentAssetPageService.rentalReturned.subscribe(
+      async () => {
+        await this.loadAllRentals();
+      }
+    )
   }
 
   async loadAllRentals() {
@@ -38,7 +46,19 @@ export class DeptAdminRentalsTabComponent implements OnInit {
 
   setCurrentTime() {
     var date = new Date();
-    this.currentTime = date.getHours();
+    this.current_time = date.getHours();
+  }
+
+  getNumber(arg: string): string {
+    var ans = arg.split(':', 2);
+    var first = ans[0];
+
+    var final = first.replace(/^0/,'');
+
+    this.setCurrentTime();
+    
+    return (final <= this.current_time ? 'true' : 'false');
+    // return (parseInt(this.current_time) - 12).toString();
   }
 
 }

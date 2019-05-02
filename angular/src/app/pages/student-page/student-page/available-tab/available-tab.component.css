@@ -3,7 +3,14 @@ h3 {
 }
 
 .table {
-    margin-left: 10px;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+#checkout-message {
+    color: blue;
+    font-weight: bold;
 }
 
 #button-segment {

@@ -1,158 +1,178 @@
 import { Component, ViewChildren, QueryList, ElementRef, AfterViewInit, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Checkout_AssetService } from 'app/services/Checkout_Asset.service';
 import { QueryService } from 'app/services/Query.service';
 import { DepartmentAdminPageService } from '../department-admin-page.service';
+import { Department_AssetService } from 'app/services/Department_Asset.service';
+import { Department_Asset } from 'app/org.cpp.csdept.assets';
+import { MatCheckbox } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dept-admin-checkout-tab',
   templateUrl: './checkout-tab.component.html',
-  styleUrls: ['./checkout-tab.component.css'],
-  providers: [QueryService, Checkout_AssetService]
+  styleUrls: ['./checkout-tab.component.css']
 })
 export class DeptAdminCheckoutTabComponent implements OnInit {
-  @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
- 
-  private checkout_form: FormGroup;
+  @ViewChildren("checkboxes") checkboxes: QueryList<MatCheckbox>;
+
   private transaction;
   private spinnerOn = false;
-  private checkoutMessage = false;
-  private assets: FormArray;
-  all_dept_assets;
+  private dept_assets = [];
+  private userExists = false;
+  private checkoutMessage = {
+    message: ''
+  };
 
   constructor(
-    private formBuilder: FormBuilder,
     private queryService: QueryService,
     private checkoutAssetService: Checkout_AssetService,
     private departmentAdminPageService: DepartmentAdminPageService,
-    ) {}
+    private departmentAssetService: Department_AssetService
+  ) { }
 
   async ngOnInit() {
-
-    this.checkout_form = this.formBuilder.group({
-      assets: this.formBuilder.array([])
-    });
-
     // subscribe to button-click-event subject
     this.departmentAdminPageService.assetCreated.subscribe(
       async () => {
-        console.log('UPDATING ASSETS');
         await this.loadAllAssets();
       });
 
-      this.initForm();
+    this.departmentAdminPageService.rentalReturned.subscribe(
+      async () => {
+        await this.loadAllAssets();
+      });
 
-      await this.loadAllAssets();
-
-      this.initForm();
+    await this.loadAllAssets();
   }
 
   async loadAllAssets() {
-    
-    // Fetch the department assets from REST server
-    const fetched_assets = await this.queryService.getAllAvailableAssets().toPromise()
-    .catch((error) => {
-      console.log(error);
-    })
-
-    console.log(fetched_assets);
-
-    this.all_dept_assets = fetched_assets;
+    this.dept_assets = await this.queryService.getAllAvailableAssets().toPromise()
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
-  initForm() {
-    let asset_array = new FormArray([]);
+  async onSubmit(form: NgForm) {
+    this.spinnerOn = true;
 
-    if(this.all_dept_assets)
-    {
-      console.log('Loading Department Assets');
-
-      console.log(this.all_dept_assets);
-
-      for(let asset of this.all_dept_assets) {
-        asset_array.push(
-          new FormGroup({
-            'asset_name': new FormControl(),
-            'checked_out': new FormControl()
-          })
-        );
-      }
-    }
-
-    this.checkout_form = new FormGroup({
-      'asset_array': asset_array
-    });
-
-  }
-
-  async onSubmit() {
-    console.log(this.checkout_form);
-
-    // this.spinnerOn = true;
-    // const user_name = form.form.value.user_name;
-    // const asset_Id = this.getAssetName();
+    var asset_names = this.getAssetNames();
+    const user_name = form.form.value.user_name;
 
     // TODO - need some verification that the student exists
-    // var student = await this.queryService.getStudentInfo(user_name).toPromise();
-    // console.log(student);
+    var student = await this.queryService.getStudentInfo(user_name).toPromise();
 
-    // this.transaction = {
-    //   $class: 'org.cpp.csdept.assets.Checkout_Item',
-    //   'renter': `org.cpp.csdept.user.Student#${user_name}`,
-    //   'department_asset': `org.cpp.csdept.assets.Department_Asset#${asset_Id}`,
-    //   'transactionId': null,
-    //   'timestamp': null
-    // };
-    
-    // Checkout the item for the user
-    // await this.checkoutAssetService.addTransaction(this.transaction).toPromise()
-    // .catch((error) => {
-    //   console.log(error);
-    // })
-    // // Reset the spinner and form and display the checkout message
-    // .then(() => {
-    //   this.spinnerOn = false;
+    // check that the user exists
+    if (student !== undefined && student.length != 0) {
 
-    //   setTimeout(()=> {
-    //     this.checkoutMessage = false;
-    //   }, 3000);
+      var rentals = await this.queryService.getUserRentals(user_name).toPromise();
 
-    //   this.checkoutMessage = true;
-    //   // form.form.reset();
-    // })
-    // // Reload the assets after new checkout was created
-    // .then(async () => {
-    //   await this.loadAllAssets();
-    // })
-    // // Emit asset created event
-    // .then(() => {
-    //   this.departmentAdminPageService.rentalCreated.next();
-    // })
+      // check that the user does not have any rentals
+      if(rentals === undefined || rentals.length == 0)
+      {
+
+        var final_array = this.getAssets(asset_names, user_name);
+
+        this.transaction = {
+          $class: 'org.cpp.csdept.assets.Checkout_Item',
+          'renter': `org.cpp.csdept.user.Student#${student[0].cpp_email}`,
+          'department_assets': final_array
+        };
+  
+        // Checkout the item for the user
+        const transaction = await this.checkoutAssetService.addTransaction(this.transaction).toPromise()
+          // response gives an error  
+          .catch(async (error) => {
+            if(error === '500 - Internal Server Error') {
+              this.userHasRental();
+              return;
+            }
+          })
+          // If response is successful
+          .then(async () => {
+  
+            // Reset the spinner and display the checkout message
+            this.spinnerOn = false;
+            this.checkoutMessage.message = "Checkout Created!";
+  
+            setTimeout(() => {
+              this.checkoutMessage.message = '';
+            }, 3000);
+  
+            // Reload the assets after new checkout was created
+            await this.loadAllAssets();
+  
+            // Emit asset created event
+            this.departmentAdminPageService.rentalCreated.next();
+            form.reset();
+          })
+      }
+      // the user already has a rental checked out
+      else {
+        this.userHasRental();
+      }
+    }
+    // student doesnt exist
+    else {
+      this.userNotFound();
+    }
   }
 
-  async checkoutAsset() {}
+  async checkoutAsset(form: NgForm) { }
 
-  getAssetName() {
-    var value;
-    
+  getAssets(asset_names: any[], user_name: string): Department_Asset[] {
+    var new_assets = [];
+
+    asset_names.forEach((asset) => {
+      var new_asset = 'org.cpp.csdept.assets.Department_Asset#' + asset;
+      new_assets.push(new_asset);
+    });
+
+    return new_assets;
+  }
+
+  getAssetNames() {
+    var user_names = [];
+
     this.checkboxes.forEach((asset) => {
-      if(asset.nativeElement.checked == true)
-      {
-        value = asset.nativeElement.name;
+      if (asset.checked == true) {
+        user_names.push(asset.name);
       }
     })
 
-    return value;
+    return user_names;
   }
 
   clearCheckBoxes() {
-    this.checkboxes.forEach(element => {
-        element.nativeElement.checked = false;
+    this.checkboxes.forEach((element) => {
+      element.checked = false;
     });
   }
 
-  getControls() {
-    return (<FormArray>this.checkout_form.get('asset_array')).controls;
+  userNotFound() {
+
+    console.log('Student doesnt exist');
+
+    this.spinnerOn = false;
+    
+    setTimeout(() => {
+      this.checkoutMessage.message = '';
+    }, 3000);
+
+    this.checkoutMessage.message = "User Not Found";
+    
+  }
+
+  userHasRental() {
+    console.log('User already has rental');
+
+    this.spinnerOn = false;
+    
+    setTimeout(() => {
+      this.checkoutMessage.message = '';
+    }, 3000);
+
+    this.checkoutMessage.message = "User already has a Rental!";
   }
 
 }

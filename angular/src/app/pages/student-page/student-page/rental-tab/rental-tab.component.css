@@ -2,6 +2,16 @@ h3 {
     text-align: center;
 }
 
+.table {
+    text-align: center;
+    margin: auto;
+}
+
+#rental-message {
+    color: blue;
+    font-weight: bold;
+}
+
 #rental-table {
     margin-left: 10px;
 }

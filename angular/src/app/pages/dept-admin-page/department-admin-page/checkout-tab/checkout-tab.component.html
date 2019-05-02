@@ -1,47 +1,47 @@
 <div class="row">
 
-  <h3>Checkout Department Asset</h3>
+    <h3>Checkout Department Asset</h3>
+  
+    <form id="checkout-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  
+        <table class="table table-responsive">
 
-  <form id="checkout-form" [formGroup]="checkout_form" (ngSubmit)="onSubmit()">
+            <tr *ngIf="(dept_assets.length == 0)" align="center">
+                  <p id="asset-message">No Assets to Checkout</p>
+            </tr>
 
-    <table class="table table-responsive">
-      <tr class="thread-cols">
-        <th>Asset</th>
-        <th>Checkout</th>
-      </tr>
+            <tr class="thread-cols" *ngIf="(dept_assets.length != 0)">
+              <th style="text-align: center;">Asset</th>
+              <th style="text-align: center;">Checkout</th>
+            </tr>
+      
 
-      <tr formArrayName="asset_array">
-        <div *ngFor="let assetCtrl of getControls(); let i = index" [formGroupName]="i">
-          <td>
-                <input formControlName="asset_name" class="form-control" style="margin: 0 auto;">
-                <label for="asset_name">
-                    {{ assetCtrl.asset_name }}
-                </label>
-          </td>
-          <td><input #checkboxes type="checkbox" formControlName="checked_out" class="form-control"></td>
-        </div>
-
-      </tr>
-
-    </table>
-
-    <mat-form-field id="user-input">
-      <input matInput placeholder="Student Name" name="user_name">
-    </mat-form-field>
-
-    <div>
-      <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
-    </div>
-
-    <div>
-      <p *ngIf="checkoutMessage" id="alert-message">Rental Created!</p>
-    </div>
-
-    <div id="button-segment">
-      <button type="button" mat-raised-button color="basic" (click)="clearCheckBoxes()">Clear</button>
-      <button type="submit" mat-raised-button color="primary">Checkout</button>
-    </div>
-
-  </form>
-
-</div>
+            <tr *ngFor="let asset of dept_assets">
+              <td class="asset-properties">{{ asset.asset_name }}</td>
+              <td>
+                <mat-checkbox #checkboxes [checked]="isChecked" type="checkbox" name="{{ asset.asset_Id }}"></mat-checkbox>
+              </td>
+            </tr>
+      
+          </table>
+      
+          <mat-form-field id="user-input" *ngIf="(dept_assets.length != 0)">
+            <input matInput placeholder="Student Name" name="user_name" [(ngModel)]="user_name" required>
+          </mat-form-field>
+  
+          <div>
+            <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
+          </div>
+  
+          <div>
+              <p *ngIf="checkoutMessage" id="alert-message">{{ checkoutMessage.message }}</p>
+          </div>
+      
+          <div id="button-segment" *ngIf="(dept_assets.length != 0)">
+              <button mat-raised-button color="basic" type="reset" (click)="clearCheckBoxes()">Clear</button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">Checkout</button>
+          </div>
+  
+    </form>
+  
+  </div>

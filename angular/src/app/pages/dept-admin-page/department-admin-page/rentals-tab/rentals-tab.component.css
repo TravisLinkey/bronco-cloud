@@ -9,6 +9,11 @@ h3 {
     margin: auto;
 }
 
+#rental-message {
+    color: blue;
+    font-weight: bold;
+}
+
 .true {
     color:red;
 }

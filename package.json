@@ -3,7 +3,7 @@
     "composer": "^0.20.8"
   },
   "name": "bronco-cloud",
-  "version": "1.0.8",
+  "version": "1.1.1",
   "description": "Business Network for Asset Rentals",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/bronco-cloud.bna",

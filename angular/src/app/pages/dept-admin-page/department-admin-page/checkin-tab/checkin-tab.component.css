@@ -24,6 +24,22 @@ table {
     margin-bottom: 10px;
 }
 
-#create-button {
-    margin: 10px;
+#search-button {
+    height: 31px;
+}
+
+#spinner {
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+#alert-message {
+    margin: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
+#submit-button {
+    margin: 20px;
+    margin-bottom: 20px;
 }
