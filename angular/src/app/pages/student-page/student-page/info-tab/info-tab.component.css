@@ -3,12 +3,12 @@ h3 {
 }
 
 .container {
-    width: auto;
+    width: 50%;
 }
 
 .label-segment {
-    text-align: center;
-    margin: 30px;
+    width: 50%;
+    margin: 0 auto;
 }
 
 label {

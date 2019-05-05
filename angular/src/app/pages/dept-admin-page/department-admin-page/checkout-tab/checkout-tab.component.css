@@ -3,17 +3,16 @@ h3 {
     margin: 20px;
 }
 
-th {
-    margin: 0 auto;
+.container {
+    width: 50%;
 }
 
-td {
-    text-align: center;
+table {
 }
-
+/* 
 #checkout-form {
     text-align: center;
-}
+} */
 
 #asset-message {
     text-align: center;
@@ -21,12 +20,9 @@ td {
     font-weight: bold;
 }
 
-.table {
-    margin: 0px;
-}
-
 #user-input {
-    margin: 20px;
+    text-align: center;
+    width: 100%;
 }
 
 #spinner {
