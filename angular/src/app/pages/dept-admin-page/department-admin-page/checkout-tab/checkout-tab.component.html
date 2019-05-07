@@ -1,14 +1,14 @@
 <h3>Checkout Department Asset</h3>
 
-<form id="checkout-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+<p id="asset-message" *ngIf="(dept_assets.length == 0)">
+  No Assets to Checkout
+</p>
+
+<form id="checkout-form" (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="(dept_assets.length != 0)">
 
   <div class="container">
 
-    <table class="table table-responsive">
-
-      <tr *ngIf="(dept_assets.length == 0)" align="center">
-        <p id="asset-message">No Assets to Checkout</p>
-      </tr>
+    <table class="table table-responsive" *ngIf="(dept_assets.length != 0)">
 
       <tr class="thread-cols" *ngIf="(dept_assets.length != 0)" align="center">
         <th style="text-align: center;">Asset</th>
@@ -24,16 +24,17 @@
         </td>
       </tr>
 
+
     </table>
 
   </div>
 
   <div id="user-input">
-      <mat-form-field *ngIf="(dept_assets.length != 0)">
-          <input matInput placeholder="Student Name" name="user_name" [(ngModel)]="user_name" required>
-        </mat-form-field>      
+    <mat-form-field *ngIf="(dept_assets.length != 0)">
+      <input matInput placeholder="Student Name" name="user_name" [(ngModel)]="user_name" required>
+    </mat-form-field>
   </div>
-  
+
   <div>
     <mat-spinner [diameter]="50" *ngIf="spinnerOn" id="spinner"></mat-spinner>
   </div>

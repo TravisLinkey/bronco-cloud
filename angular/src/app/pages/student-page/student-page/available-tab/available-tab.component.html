@@ -1,20 +1,17 @@
 <h3>Available Assets</h3>
 
-<div class="row">
-    <table class="table table-responsive">
-      
-      <tr *ngIf="(dept_assets == 0)">
-        <p id="checkout-message">No Assets to Checkout</p>
-      </tr>
-      
-      <tr class="thread-cols" *ngIf="(dept_assets.length > 0)">
-        <th>Asset Name:</th>
-      </tr>
+<table class="table table-responsive">
 
-      <tr *ngFor="let asset of dept_assets" align="left">
-        <td class="asset-properties">{{ asset.asset_name }}</td>
-      </tr>
+  <tr *ngIf="(dept_assets == 0)" align="center">
+    <p id="checkout-message">No Assets to Checkout</p>
+  </tr>
 
-    </table>
+  <tr class="thread-cols" *ngIf="(dept_assets.length > 0)" align="center">
+    <th>Asset Name:</th>
+  </tr>
 
-</div>
+  <tr *ngFor="let asset of dept_assets" align="center">
+    <td class="asset-properties">{{ asset.asset_name }}</td>
+  </tr>
+
+</table>

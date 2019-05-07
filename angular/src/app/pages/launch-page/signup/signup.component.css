@@ -12,6 +12,10 @@ h3 {
     text-align: center;
 }
 
+#google-link {
+    margin: 10px;
+}
+
 #spinner {
     margin: 0 auto;
 }

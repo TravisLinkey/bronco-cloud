@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { WalletService } from 'app/services/Wallet.service';
 import { QueryService } from 'app/services/Query.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signin',
@@ -20,7 +21,9 @@ export class SigninComponent implements OnInit {
 
   constructor(private router: Router,
     private walletService: WalletService,
-    private queryService: QueryService) { }
+    private queryService: QueryService,
+    private httpClient: HttpClient
+    ) { }
 
   ngOnInit() { }
 
@@ -39,7 +42,7 @@ export class SigninComponent implements OnInit {
         this.alertMessage.activated = false;
 
         this.router.navigate(['student']);
-      }, 3000);
+      }, 2000);
 
       this.alertMessage.message = 'User Signing In...'
       this.alertMessage.activated = true;
@@ -98,6 +101,13 @@ export class SigninComponent implements OnInit {
 
   messageActive(): boolean {
     return this.alertMessage.activated;
+  }
+
+  googleSignIn() {
+    const response = this.httpClient.get('http://localhost:3001/auth/google').toPromise();
+    
+    console.log('IMPORTANT');
+    console.log(response);
   }
 
 }

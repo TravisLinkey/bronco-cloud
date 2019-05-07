@@ -12,9 +12,10 @@
           <h3>Sign In</h3>
 
           <div>
-            <button id="signin-button" mat-button color="primary">
+            <button id="signin-button" mat-button color="primary" type="button" (click)="googleSignIn()">
               Verify with Google
             </button>
+            <mat-checkbox disabled="true"></mat-checkbox>
           </div>
 
           <div class="">

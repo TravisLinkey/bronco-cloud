@@ -32,7 +32,7 @@ export class DataService<Type> {
   }
 
   public add(ns: string, asset: Type): Observable<Type> {
-    return this.http.post(this.actionUrl + ns, asset)
+    return this.http.post(this.actionUrl + ns, asset, {withCredentials: true})
       .map(this.extractData)
       .catch(this.handleError);
   }
